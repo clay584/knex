@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "knex"
 version = "0.1.0"
-description = "Python library for building composable text parsers"
+description = "Python library for creating chainable text parsers"
 authors = ["Clay Curtis <clay584@gmail.com>"]
 license = "GNU GPLv3"
 
