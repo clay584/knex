@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "knex"
+version = "0.1.0"
+description = "Python library for building composable text parsers"
+authors = ["Clay Curtis <clay584@gmail.com>"]
+license = "GNU GPLv3"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+regex = "^2021.8.28"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^3.9.2"
+bandit = "^1.7.0"
+semgrep = "^0.64.0"
+black = "^21.8b0"
+pytest = "^6.2.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
