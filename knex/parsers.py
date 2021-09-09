@@ -12,6 +12,9 @@ class Parser:
         other.input = self.process()
         return other.process()
 
+    def __str__(self):
+        return self.process()
+
 
 class Base64Encode(Parser):
     def process(self):

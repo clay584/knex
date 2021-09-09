@@ -3,9 +3,9 @@ from knex.parsers import Base64Decode, Base64Encode, Parser
 
 def test_gt():
     starter = Parser("clay")
-    encode = Base64Encode()
-    decode = Base64Decode()
-    print(starter > encode > decode)
+    print(starter)
+    print(starter > Base64Encode())
+    print(starter > Base64Encode() > Base64Decode())
 
 
 test_gt()
