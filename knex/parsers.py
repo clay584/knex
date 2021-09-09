@@ -1,8 +1,13 @@
 import base64
+from typing import Any, Dict, List, Union
+
+
+class KNEXInputMismatch(Exception):
+    pass
 
 
 class Parser:
-    def __init__(self, input=None):
+    def __init__(self, input=None) -> None:
         self.input = input
 
     def process(self):
@@ -13,14 +18,49 @@ class Parser:
         return other.process()
 
     def __str__(self):
-        return self.process()
+        return str(self.process())
 
 
 class Base64Encode(Parser):
-    def process(self):
-        return base64.b64encode(self.input.encode())
+    def process(self) -> str:
+        if not isinstance(self.input, str):
+            raise KNEXInputMismatch(
+                f"{type(self).__name__} KNEX requires input of type 'str'"
+            )
+        return base64.b64encode(self.input.encode()).decode("ascii")
 
 
 class Base64Decode(Parser):
-    def process(self):
+    def process(self) -> str:
+        if not isinstance(self.input, str):
+            raise KNEXInputMismatch(
+                f"{type(self).__name__} KNEX requires input of type 'str'"
+            )
         return base64.b64decode(self.input).decode()
+
+
+class Split(Parser):
+    def __init__(self, delimeter=" ", **kwargs):
+        self.delimeter = delimeter
+        super().__init__(**kwargs)
+
+    def process(self) -> List:
+        if not isinstance(self.input, str):
+            raise KNEXInputMismatch(
+                f"{type(self).__name__} KNEX requires input of type 'str'"
+            )
+        return self.input.split(self.delimeter)
+
+
+class GetIndex(Parser):
+    def __init__(self, idx, **kwargs):
+        self.idx = idx
+        super().__init__(**kwargs)
+
+    def process(self):
+        if not isinstance(self.input, (list, set, tuple)):
+            raise KNEXInputMismatch(f"{type(self).__name__} KNEX requires an iterable")
+        try:
+            return self.input[self.idx]
+        except IndexError as e:
+            return e
