@@ -1,17 +1,14 @@
-from knex.parsers import Base64Decode, Base64Encode, GetIndex, Parser, Split
+from knex.parsers import (
+    Base64Decode,
+    Base64Encode,
+    GetIndex,
+    Parser,
+    Split,
+    ToLower,
+    ToUpper,
+)
 
+starter = Parser("foo,bar")
+res = starter > Split(",") > GetIndex(1) > ToUpper()
 
-def test_gt():
-    starter = Parser("clay,michelle")
-    print(starter)
-    print(starter > Base64Encode())
-    print(
-        starter
-        > Base64Encode()
-        > Base64Decode()
-        > Split(delimeter=",")
-        > GetIndex(idx=2)
-    )
-
-
-test_gt()
+print(res)
