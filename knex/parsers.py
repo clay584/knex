@@ -11,14 +11,20 @@ class KNEXInputMismatch(Exception):
 
 
 class Parser:
-    history: List = []
-
     def __init__(self, input=None):
         self.input = input
         self.result = None
+        self.history: List = []
 
     def process(self):
         return self.input
+
+    def get_args(self):
+        args = self.__dict__
+        args.pop("input")
+        args.pop("result")
+        args.pop("history")
+        return args
 
     def __gt__(self, other):
         # start = self.input
@@ -27,8 +33,9 @@ class Parser:
         # Append to history, except for the start
         if str(type(self).__name__) != "Start":
             this_history = OrderedDict()
-            this_history["parser"] = str(type(self).__name__)
             this_history["input"] = self.input
+            this_history["parser"] = str(type(self).__name__)
+            this_history["args"] = self.get_args()
             this_history["output"] = other.input
 
             other.history.append(this_history)

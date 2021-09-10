@@ -6,11 +6,11 @@ start = Start("foo,bar")
 end = End()
 start > Split(",") > GetIndex(1) > ToUpper() > end
 
-print(end.result)
-print(end)
+# print(end.result)
+# print(end)
 print(json.dumps(end.history, indent=4))
 
-print(end)
+# print(end)
 
 output = """
 Interface             IP-Address      OK?    Method Status     	Protocol
@@ -33,5 +33,8 @@ Te36/48               unassigned      YES    unset  down       	down
 Virtual36             unassigned      YES    unset  up         	up
 """
 starter = Parser(output)
+ender = End()
 pattern = r"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b"
-print(starter > RegexExtractAll(pattern))
+starter > RegexExtractAll(pattern) > ender
+
+print(json.dumps(ender.history, indent=4))
