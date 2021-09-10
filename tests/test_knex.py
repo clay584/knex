@@ -6,9 +6,11 @@ from knex.parsers import (
     Concat,
     Count,
     End,
+    FirstListElement,
     GetField,
     GetIndex,
     IpNetwork,
+    LastListElement,
     Parser,
     RegexExtractAll,
     Split,
@@ -145,3 +147,17 @@ def test_append():
     start > Append("bar") > end
 
     assert end.result == "foobar"  # nosec B101
+
+
+def test_first_list_element():
+    start = Start(["foo", "bar"])
+    end = End()
+    start > FirstListElement() > end
+    assert end.result == "foo"  # nosec B101
+
+
+def test_last_list_element():
+    start = Start(["foo", "bar"])
+    end = End()
+    start > LastListElement() > end
+    assert end.result == "bar"  # nosec B101

@@ -13,7 +13,7 @@ class KNEXInputMismatch(Exception):
 class Parser:
     history: List = []
 
-    def __init__(self, input=None) -> None:
+    def __init__(self, input=None):
         self.input = input
         self.result = None
 
@@ -49,7 +49,7 @@ class End(Parser):
 
 
 class Base64Encode(Parser):
-    def process(self) -> str:
+    def process(self):
         if not isinstance(self.input, str):
             raise KNEXInputMismatch(
                 f"{type(self).__name__} KNEX requires input of type 'str'"
@@ -58,7 +58,7 @@ class Base64Encode(Parser):
 
 
 class Base64Decode(Parser):
-    def process(self) -> str:
+    def process(self):
         if not isinstance(self.input, str):
             raise KNEXInputMismatch(
                 f"{type(self).__name__} KNEX requires input of type 'str'"
@@ -71,7 +71,7 @@ class Split(Parser):
         self.delimeter = delimeter
         super().__init__(**kwargs)
 
-    def process(self) -> List:
+    def process(self):
         if not isinstance(self.input, str):
             raise KNEXInputMismatch(
                 f"{type(self).__name__} KNEX requires input of type 'str'"
@@ -118,7 +118,7 @@ class Count(Parser):
 
 
 class ToLower(Parser):
-    def process(self) -> str:
+    def process(self):
         if not isinstance(self.input, str):
             raise KNEXInputMismatch(
                 f"{type(self).__name__} KNEX requires input of type 'str'"
@@ -127,7 +127,7 @@ class ToLower(Parser):
 
 
 class ToUpper(Parser):
-    def process(self) -> str:
+    def process(self):
         if not isinstance(self.input, str):
             raise KNEXInputMismatch(
                 f"{type(self).__name__} KNEX requires input of type 'str'"
@@ -136,7 +136,7 @@ class ToUpper(Parser):
 
 
 class IpNetwork(Parser):
-    def process(self) -> str:
+    def process(self):
         if not isinstance(self.input, str):
             raise KNEXInputMismatch(
                 f"{type(self).__name__} KNEX requires input of type 'str'"
@@ -149,7 +149,7 @@ class RegexExtractAll(Parser):
         self.pattern = pattern
         super().__init__(**kwargs)
 
-    def process(self) -> str:
+    def process(self):
         if not isinstance(self.input, str):
             raise KNEXInputMismatch(
                 f"{type(self).__name__} KNEX requires input of type 'str'"
@@ -182,3 +182,21 @@ class Append(Parser):
                 f"{type(self).__name__} KNEX requires an input of type 'str'"
             )
         return self.input + self.suffix
+
+
+class FirstListElement(Parser):
+    def process(self):
+        if not isinstance(self.input, (list, set, tuple)):
+            raise KNEXInputMismatch(
+                f"{type(self).__name__} KNEX requires input of iterable"
+            )
+        return self.input[0]
+
+
+class LastListElement(Parser):
+    def process(self):
+        if not isinstance(self.input, (list, set, tuple)):
+            raise KNEXInputMismatch(
+                f"{type(self).__name__} KNEX requires input of iterable"
+            )
+        return self.input[-1]
