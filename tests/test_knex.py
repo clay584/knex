@@ -7,6 +7,7 @@ from knex.parsers import (
     GetIndex,
     IpNetwork,
     Parser,
+    RegexExtractAll,
     Split,
     ToLower,
     ToUpper,
@@ -64,6 +65,34 @@ def test_to_upper():
 def test_ip_network():
     starter = Parser("192.168.1.55/24")
     assert (starter > IpNetwork()) == "192.168.1.0/24"  # nosec B101
+
+
+def test_regex_extract():
+    output = """
+Interface             IP-Address      OK?    Method Status     	Protocol
+GigabitEthernet0/1    unassigned      YES    unset  up         	up
+GigabitEthernet0/2    192.168.190.235 YES    unset  up         	up
+GigabitEthernet0/3    unassigned      YES    unset  up         	up
+GigabitEthernet0/4    192.168.191.2   YES    unset  up         	up
+TenGigabitEthernet2/1 unassigned      YES    unset  up         	up
+TenGigabitEthernet2/2 unassigned      YES    unset  up         	up
+TenGigabitEthernet2/3 unassigned      YES    unset  up         	up
+TenGigabitEthernet2/4 unassigned      YES    unset  down       	down
+GigabitEthernet36/1   unassigned      YES    unset  down        down
+GigabitEthernet36/2   unassigned      YES    unset  down        down
+GigabitEthernet36/11  unassigned      YES    unset  down       	down
+GigabitEthernet36/25  unassigned      YES    unset  down       	down
+Te36/45               unassigned      YES    unset  down       	down
+Te36/46               unassigned      YES    unset  down       	down
+Te36/47               unassigned      YES    unset  down       	down
+Te36/48               unassigned      YES    unset  down       	down
+Virtual36             unassigned      YES    unset  up         	up
+"""
+    starter = Parser(output)
+
+    pattern = r"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b"
+
+    assert (starter > RegexExtractAll(pattern)) == ["192.168.190.235", "192.168.191.2"]
 
 
 def test_chain1():

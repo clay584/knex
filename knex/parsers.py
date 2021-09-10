@@ -2,6 +2,8 @@ import base64
 from ipaddress import IPv4Interface
 from typing import List
 
+import regex as re
+
 
 class KNEXInputMismatch(Exception):
     pass
@@ -116,3 +118,16 @@ class IpNetwork(Parser):
                 f"{type(self).__name__} KNEX requires input of type 'str'"
             )
         return str(IPv4Interface(self.input).network)
+
+
+class RegexExtractAll(Parser):
+    def __init__(self, pattern, **kwargs):
+        self.pattern = pattern
+        super().__init__(**kwargs)
+
+    def process(self) -> str:
+        if not isinstance(self.input, str):
+            raise KNEXInputMismatch(
+                f"{type(self).__name__} KNEX requires input of type 'str'"
+            )
+        return re.findall(self.pattern, self.input)
