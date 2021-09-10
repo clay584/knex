@@ -5,6 +5,7 @@ from knex.parsers import (
     Count,
     GetField,
     GetIndex,
+    IpNetwork,
     Parser,
     Split,
     ToLower,
@@ -58,6 +59,11 @@ def test_to_lower():
 def test_to_upper():
     starter = Parser("foobar")
     assert (starter > ToUpper()) == "FOOBAR"  # nosec B101
+
+
+def test_ip_network():
+    starter = Parser("192.168.1.55/24")
+    assert (starter > IpNetwork()) == "192.168.1.0/24"  # nosec B101
 
 
 def test_chain1():

@@ -1,4 +1,5 @@
 import base64
+from ipaddress import IPv4Interface
 from typing import List
 
 
@@ -106,3 +107,12 @@ class ToUpper(Parser):
                 f"{type(self).__name__} KNEX requires input of type 'str'"
             )
         return self.input.upper()
+
+
+class IpNetwork(Parser):
+    def process(self) -> str:
+        if not isinstance(self.input, str):
+            raise KNEXInputMismatch(
+                f"{type(self).__name__} KNEX requires input of type 'str'"
+            )
+        return str(IPv4Interface(self.input).network)
