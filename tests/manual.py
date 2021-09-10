@@ -1,12 +1,4 @@
-from knex.parsers import (
-    Base64Decode,
-    Base64Encode,
-    GetIndex,
-    Parser,
-    Split,
-    ToLower,
-    ToUpper,
-)
+from knex.parsers import GetIndex, Parser, Split, ToUpper
 
 starter = Parser("foo,bar")
 res = starter > Split(",") > GetIndex(1) > ToUpper()
