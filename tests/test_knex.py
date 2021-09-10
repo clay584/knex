@@ -1,5 +1,6 @@
 from knex import __version__
 from knex.parsers import (
+    Append,
     Base64Decode,
     Base64Encode,
     Concat,
@@ -136,3 +137,11 @@ def test_concat():
     start > Concat("foo", "bar") > end
 
     assert end.result == "foobazbar"  # nosec B101
+
+
+def test_append():
+    start = Start("foo")
+    end = End()
+    start > Append("bar") > end
+
+    assert end.result == "foobar"  # nosec B101

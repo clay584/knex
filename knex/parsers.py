@@ -169,3 +169,16 @@ class Concat(Parser):
                 f"{type(self).__name__} KNEX requires an input of type 'str'"
             )
         return self.prefix + self.input + self.suffix
+
+
+class Append(Parser):
+    def __init__(self, suffix="", **kwargs):
+        self.suffix = suffix
+        super().__init__(**kwargs)
+
+    def process(self):
+        if not isinstance(self.input, str):
+            raise KNEXInputMismatch(
+                f"{type(self).__name__} KNEX requires an input of type 'str'"
+            )
+        return self.input + self.suffix
