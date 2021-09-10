@@ -17,52 +17,52 @@ def test_version():
 
 
 def test_starter():
-    assert str(Parser("clay,michelle")) == "clay,michelle"
+    assert str(Parser("clay,michelle")) == "clay,michelle"  # nosec B101
 
 
 def test_b64_encode():
     starter = Parser("clay,michelle")
-    assert (starter > Base64Encode()) == "Y2xheSxtaWNoZWxsZQ=="
+    assert (starter > Base64Encode()) == "Y2xheSxtaWNoZWxsZQ=="  # nosec B101
 
 
 def test_b64_decode():
     starter = Parser("Y2xheSxtaWNoZWxsZQ==")
-    assert (starter > Base64Decode()) == "clay,michelle"
+    assert (starter > Base64Decode()) == "clay,michelle"  # nosec B101
 
 
 def test_split():
     starter = Parser("clay,michelle")
-    assert (starter > Split(delimeter=",")) == ["clay", "michelle"]
+    assert (starter > Split(delimeter=",")) == ["clay", "michelle"]  # nosec B101
 
 
 def test_get_index():
     starter = Parser(["clay", "michelle"])
-    assert (starter > GetIndex(1)) == "michelle"
+    assert (starter > GetIndex(1)) == "michelle"  # nosec B101
 
 
 def test_get_field():
     starter = Parser({"foo": "bar", "buzz": "baz"})
-    assert (starter > GetField("foo")) == "bar"
+    assert (starter > GetField("foo")) == "bar"  # nosec B101
 
 
 def test_count():
     starter = Parser({"foo": "bar", "buzz": "baz"})
-    assert (starter > Count()) == 2
+    assert (starter > Count()) == 2  # nosec B101
 
 
 def test_to_lower():
     starter = Parser("FOOBAR")
-    assert (starter > ToLower()) == "foobar"
+    assert (starter > ToLower()) == "foobar"  # nosec B101
 
 
 def test_to_upper():
     starter = Parser("foobar")
-    assert (starter > ToUpper()) == "FOOBAR"
+    assert (starter > ToUpper()) == "FOOBAR"  # nosec B101
 
 
 def test_chain1():
     starter = Parser("clay,michelle")
-    assert (
+    assert (  # nosec B101
         starter
         > Base64Encode()
         > Base64Decode()

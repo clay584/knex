@@ -1,5 +1,5 @@
 import base64
-from typing import Any, Dict, List, Union
+from typing import List
 
 
 class KNEXInputMismatch(Exception):
