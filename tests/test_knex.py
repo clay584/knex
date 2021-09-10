@@ -2,13 +2,16 @@ from knex import __version__
 from knex.parsers import (
     Base64Decode,
     Base64Encode,
+    Concat,
     Count,
+    End,
     GetField,
     GetIndex,
     IpNetwork,
     Parser,
     RegexExtractAll,
     Split,
+    Start,
     ToLower,
     ToUpper,
 )
@@ -18,53 +21,75 @@ def test_version():
     assert __version__ == "0.1.2"  # nosec B101
 
 
-def test_starter():
+def test_start():
     assert str(Parser("clay,michelle")) == "clay,michelle"  # nosec B101
 
 
+def test_end():
+    assert End().result is None  # nosec B101
+
+
 def test_b64_encode():
-    starter = Parser("clay,michelle")
-    assert (starter > Base64Encode()) == "Y2xheSxtaWNoZWxsZQ=="  # nosec B101
+    start = Parser("clay,michelle")
+    end = End()
+    start > Base64Encode() > end
+    assert end.result == "Y2xheSxtaWNoZWxsZQ=="  # nosec B101
 
 
 def test_b64_decode():
-    starter = Parser("Y2xheSxtaWNoZWxsZQ==")
-    assert (starter > Base64Decode()) == "clay,michelle"  # nosec B101
+    start = Parser("Y2xheSxtaWNoZWxsZQ==")
+    end = End()
+    start > Base64Decode() > end
+    assert end.result == "clay,michelle"  # nosec B101
 
 
 def test_split():
-    starter = Parser("clay,michelle")
-    assert (starter > Split(",")) == ["clay", "michelle"]  # nosec B101
+    start = Parser("clay,michelle")
+    end = End()
+    start > Split(",") > end
+    assert end.result == ["clay", "michelle"]  # nosec B101
 
 
 def test_get_index():
-    starter = Parser(["clay", "michelle"])
-    assert (starter > GetIndex(1)) == "michelle"  # nosec B101
+    start = Parser(["clay", "michelle"])
+    end = End()
+    start > GetIndex(1) > end
+    assert end.result == "michelle"  # nosec B101
 
 
 def test_get_field():
-    starter = Parser({"foo": "bar", "buzz": "baz"})
-    assert (starter > GetField("foo")) == "bar"  # nosec B101
+    start = Parser({"foo": "bar", "buzz": "baz"})
+    end = End()
+    start > GetField("foo") > end
+    assert end.result == "bar"  # nosec B101
 
 
 def test_count():
-    starter = Parser({"foo": "bar", "buzz": "baz"})
-    assert (starter > Count()) == 2  # nosec B101
+    start = Parser({"foo": "bar", "buzz": "baz"})
+    end = End()
+    start > Count() > end
+    assert end.result == 2  # nosec B101
 
 
 def test_to_lower():
-    starter = Parser("FOOBAR")
-    assert (starter > ToLower()) == "foobar"  # nosec B101
+    start = Parser("FOOBAR")
+    end = End()
+    start > ToLower() > end
+    assert end.result == "foobar"  # nosec B101
 
 
 def test_to_upper():
-    starter = Parser("foobar")
-    assert (starter > ToUpper()) == "FOOBAR"  # nosec B101
+    start = Parser("foobar")
+    end = End()
+    start > ToUpper() > end
+    assert end.result == "FOOBAR"  # nosec B101
 
 
 def test_ip_network():
-    starter = Parser("192.168.1.55/24")
-    assert (starter > IpNetwork()) == "192.168.1.0/24"  # nosec B101
+    start = Parser("192.168.1.55/24")
+    end = End()
+    start > IpNetwork() > end
+    assert end.result == "192.168.1.0/24"  # nosec B101
 
 
 def test_regex_extract():
@@ -88,18 +113,26 @@ Te36/47               unassigned      YES    unset  down       	down
 Te36/48               unassigned      YES    unset  down       	down
 Virtual36             unassigned      YES    unset  up         	up
 """
-    starter = Parser(output)
-
+    start = Parser(output)
+    end = End()
     pattern = r"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b"
-
-    assert (starter > RegexExtractAll(pattern)) == [  # nosec B101
+    start > RegexExtractAll(pattern) > end
+    assert end.result == [  # nosec B101
         "192.168.190.235",
         "192.168.191.2",
     ]
 
 
 def test_chain1():
-    starter = Parser("clay,michelle")
-    assert (  # nosec B101
-        starter > Base64Encode() > Base64Decode() > Split(",") > GetIndex(0)
-    ) == "clay"
+    start = Parser("clay,michelle")
+    end = End()
+    start > Base64Encode() > Base64Decode() > Split(",") > GetIndex(0) > end
+    assert end.result == "clay"  # nosec B101
+
+
+def test_concat():
+    start = Start("baz")
+    end = End()
+    start > Concat("foo", "bar") > end
+
+    assert end.result == "foobazbar"  # nosec B101

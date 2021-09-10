@@ -1,9 +1,16 @@
-from knex.parsers import GetIndex, Parser, RegexExtractAll, Split, ToUpper
+import json
 
-starter = Parser("foo,bar")
-res = starter > Split(",") > GetIndex(1) > ToUpper()
+from knex.parsers import End, GetIndex, Parser, RegexExtractAll, Split, Start, ToUpper
 
-print(res)
+start = Start("foo,bar")
+end = End()
+start > Split(",") > GetIndex(1) > ToUpper() > end
+
+print(end.result)
+print(end)
+print(json.dumps(end.history, indent=4))
+
+print(end)
 
 output = """
 Interface             IP-Address      OK?    Method Status     	Protocol

@@ -1,4 +1,5 @@
 import base64
+from collections import OrderedDict
 from ipaddress import IPv4Interface
 from typing import List
 
@@ -10,18 +11,41 @@ class KNEXInputMismatch(Exception):
 
 
 class Parser:
+    history: List = []
+
     def __init__(self, input=None) -> None:
         self.input = input
+        self.result = None
 
     def process(self):
         return self.input
 
     def __gt__(self, other):
+        # start = self.input
         other.input = self.process()
-        return other.process()
+        other.result = other.process()
+        # Append to history, except for the start
+        if str(type(self).__name__) != "Start":
+            this_history = OrderedDict()
+            this_history["parser"] = str(type(self).__name__)
+            this_history["input"] = self.input
+            this_history["output"] = other.input
+
+            other.history.append(this_history)
+
+        return other.result
 
     def __str__(self):
         return str(self.process())
+
+
+class Start(Parser):
+    pass
+
+
+class End(Parser):
+    def __str__(self):
+        return str(self.result)
 
 
 class Base64Encode(Parser):
@@ -131,3 +155,17 @@ class RegexExtractAll(Parser):
                 f"{type(self).__name__} KNEX requires input of type 'str'"
             )
         return re.findall(self.pattern, self.input)
+
+
+class Concat(Parser):
+    def __init__(self, prefix="", suffix="", **kwargs):
+        self.prefix = prefix
+        self.suffix = suffix
+        super().__init__(**kwargs)
+
+    def process(self):
+        if not isinstance(self.input, str):
+            raise KNEXInputMismatch(
+                f"{type(self).__name__} KNEX requires an input of type 'str'"
+            )
+        return self.prefix + self.input + self.suffix
