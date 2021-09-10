@@ -34,7 +34,7 @@ def test_b64_decode():
 
 def test_split():
     starter = Parser("clay,michelle")
-    assert (starter > Split(delimeter=",")) == ["clay", "michelle"]  # nosec B101
+    assert (starter > Split(",")) == ["clay", "michelle"]  # nosec B101
 
 
 def test_get_index():
@@ -101,9 +101,5 @@ Virtual36             unassigned      YES    unset  up         	up
 def test_chain1():
     starter = Parser("clay,michelle")
     assert (  # nosec B101
-        starter
-        > Base64Encode()
-        > Base64Decode()
-        > Split(delimeter=",")
-        > GetIndex(idx=0)
+        starter > Base64Encode() > Base64Decode() > Split(",") > GetIndex(0)
     ) == "clay"
