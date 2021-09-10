@@ -64,3 +64,45 @@ class GetIndex(Parser):
             return self.input[self.idx]
         except IndexError as e:
             return e
+
+
+class GetField(Parser):
+    def __init__(self, field, **kwargs):
+        self.field = field
+        super().__init__(**kwargs)
+
+    def process(self):
+        if not isinstance(self.input, dict):
+            raise KNEXInputMismatch(
+                f"{type(self).__name__} KNEX requires an input of dictionary"
+            )
+        try:
+            return self.input[self.field]
+        except Exception as e:
+            return e
+
+
+class Count(Parser):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def process(self):
+        return len(self.input)
+
+
+class ToLower(Parser):
+    def process(self) -> str:
+        if not isinstance(self.input, str):
+            raise KNEXInputMismatch(
+                f"{type(self).__name__} KNEX requires input of type 'str'"
+            )
+        return self.input.lower()
+
+
+class ToUpper(Parser):
+    def process(self) -> str:
+        if not isinstance(self.input, str):
+            raise KNEXInputMismatch(
+                f"{type(self).__name__} KNEX requires input of type 'str'"
+            )
+        return self.input.upper()

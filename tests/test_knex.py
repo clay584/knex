@@ -1,5 +1,15 @@
 from knex import __version__
-from knex.parsers import Base64Decode, Base64Encode, GetIndex, Parser, Split
+from knex.parsers import (
+    Base64Decode,
+    Base64Encode,
+    Count,
+    GetField,
+    GetIndex,
+    Parser,
+    Split,
+    ToLower,
+    ToUpper,
+)
 
 
 def test_version():
@@ -28,6 +38,26 @@ def test_split():
 def test_get_index():
     starter = Parser(["clay", "michelle"])
     assert (starter > GetIndex(1)) == "michelle"
+
+
+def test_get_field():
+    starter = Parser({"foo": "bar", "buzz": "baz"})
+    assert (starter > GetField("foo")) == "bar"
+
+
+def test_count():
+    starter = Parser({"foo": "bar", "buzz": "baz"})
+    assert (starter > Count()) == 2
+
+
+def test_to_lower():
+    starter = Parser("FOOBAR")
+    assert (starter > ToLower()) == "foobar"
+
+
+def test_to_upper():
+    starter = Parser("foobar")
+    assert (starter > ToUpper()) == "FOOBAR"
 
 
 def test_chain1():
