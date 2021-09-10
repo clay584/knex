@@ -92,7 +92,10 @@ Virtual36             unassigned      YES    unset  up         	up
 
     pattern = r"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b"
 
-    assert (starter > RegexExtractAll(pattern)) == ["192.168.190.235", "192.168.191.2"]
+    assert (starter > RegexExtractAll(pattern)) == [  # nosec B101
+        "192.168.190.235",
+        "192.168.191.2",
+    ]
 
 
 def test_chain1():
