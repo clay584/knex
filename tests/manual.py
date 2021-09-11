@@ -1,14 +1,26 @@
 import json
 
-from knex.parsers import End, GetIndex, Parser, RegexExtractAll, Split, Start, ToUpper
+from knex.parsers import (
+    Base64Decode,
+    Base64Encode,
+    End,
+    GetIndex,
+    Parser,
+    RegexExtractAll,
+    Split,
+    Start,
+    ToUpper,
+)
 
 start = Start("foo,bar")
-end = End()
-start > Split(",") > GetIndex(1) > ToUpper() > end
+# end = End()
+end = start > Split(",") > GetIndex(1) > ToUpper()
+base = Base64Encode()
 
+end = start > Base64Encode() > Base64Decode()
 # print(end.result)
 # print(end)
-print(json.dumps(end.history, indent=4))
+# print(json.dumps(end.result, indent=4))
 
 # print(end)
 
@@ -33,8 +45,8 @@ Te36/48               unassigned      YES    unset  down       	down
 Virtual36             unassigned      YES    unset  up         	up
 """
 starter = Parser(output)
-ender = End()
 pattern = r"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b"
-starter > RegexExtractAll(pattern) > ender
+ender = starter > RegexExtractAll(pattern)
 
-print(json.dumps(ender.history, indent=4))
+# print(json.dumps(ender.result, indent=4))
+print(ender)

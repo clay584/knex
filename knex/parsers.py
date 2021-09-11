@@ -14,39 +14,40 @@ class Parser:
     def __init__(self, input=None):
         self.input = input
         self.result = None
-        self.history: List = []
+        # self.history: List = []
 
     def process(self):
         return self.input
 
-    def get_args(self):
-        args = self.__dict__
-        args.pop("input")
-        args.pop("result")
-        args.pop("history")
-        return args
+    # def get_args(self):
+    #     args = self.__dict__
+    #     args.pop("input")
+    #     args.pop("result")
+    #     args.pop("history")
+    #     return args
 
     def __gt__(self, other):
         # start = self.input
         other.input = self.process()
         other.result = other.process()
         # Append to history, except for the start
-        if str(type(self).__name__) != "Start":
-            this_history = OrderedDict()
-            this_history["input"] = self.input
-            this_history["parser"] = str(type(self).__name__)
-            this_history["args"] = self.get_args()
-            this_history["output"] = other.input
+        # if str(type(self).__name__) != "Start":
+        #     this_history = OrderedDict()
+        #     this_history["input"] = other.input
+        #     this_history["parser"] = str(type(other).__name__)
+        #     this_history["args"] = other.get_args()
+        #     this_history["output"] = other.result
+        #     other.history.append(this_history)
 
-            other.history.append(this_history)
-
-        return other.result
+        return other
 
     def __str__(self):
         return str(self.process())
 
 
 class Start(Parser):
+    # def __init__(self, input):
+    # super().__init__(input)
     pass
 
 
