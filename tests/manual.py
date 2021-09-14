@@ -3,22 +3,37 @@ import json
 from knex.parsers import (
     Base64Decode,
     Base64Encode,
-    End,
+    Concat,
     GetIndex,
     Parser,
     RegexExtractAll,
     Split,
     Start,
+    ToLower,
     ToUpper,
 )
 
-start = Start("foo,bar")
-# end = End()
-end: End = start > Split(",") > GetIndex(1) > ToUpper()
-print(json.dumps(end.history, indent=4))
-base = Base64Encode()
+# end = Start("foo,bar") > Split(",") > GetIndex(1) > ToUpper()
+# print(json.dumps(end.history, indent=4))
+# base = Base64Encode()
 
-end = start > Base64Encode() > Base64Decode()
+print(
+    json.dumps(
+        (
+            Start("Clay")
+            > Base64Encode()
+            > Base64Decode()
+            > ToUpper()
+            > Split("A")
+            > GetIndex(0)
+            > Concat(suffix="AY")
+            > ToLower()
+        ).history,
+        indent=4,
+    )
+)
+
+# end = start > Base64Encode() > Base64Decode()
 # print(end.result)
 # print(end)
 # print(json.dumps(end.result, indent=4))
@@ -45,9 +60,9 @@ Te36/47               unassigned      YES    unset  down       	down
 Te36/48               unassigned      YES    unset  down       	down
 Virtual36             unassigned      YES    unset  up         	up
 """
-starter = Parser(output)
-pattern = r"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b"
-ender = starter > RegexExtractAll(pattern)
+# starter = Parser(output)
+# pattern = r"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b"
+# ender = starter > RegexExtractAll(pattern)
 
 # print(json.dumps(ender.result, indent=4))
-print(ender)
+# print(ender)

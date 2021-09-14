@@ -2,7 +2,6 @@ import base64
 from collections import OrderedDict
 from copy import copy
 from ipaddress import IPv4Interface
-from typing import List
 
 import regex as re
 
@@ -15,8 +14,8 @@ class Parser:
     def __init__(self, input=None, *args, **kwargs):
         self.input = input
         self.result = None
-        # self.history: List = []
         self.args = None
+        self.error = False
         super().__init__(*args, **kwargs)
 
     def process(self):
@@ -27,30 +26,21 @@ class Parser:
         args.pop("input")
         args.pop("result")
         args.pop("args")
+        args.pop("error")
         try:
             args.pop("history")
-        except Exception:
+        except KeyError:
             pass
         return args
 
-    # def gen_history(self):
-    #     this_history = OrderedDict()
-    #     this_history["input"] = other.input
-    #     this_history["parser"] = str(type(other).__name__)
-    #     this_history["args"] = other.get_args()
-    #     this_history["reuslt"] = other.result
-    #     return this_history
-
     def __gt__(self, other):
-        # start = self.input
         other.input = self.process()
         other.result = other.process()
-        # Append to history, except for the start
-        # if str(type(self).__name__) != "Start":
         history = OrderedDict()
-        history["input"] = other.input
         history["parser"] = str(type(other).__name__)
+        history["input"] = other.input
         history["args"] = other.get_args()
+        history["error"] = other.error
         history["output"] = other.result
 
         if hasattr(self, "history") and self.history is not None:
@@ -71,60 +61,51 @@ class Start(Parser):
         self.result = self.input
         self.args = self.get_args()
 
-    # def __init__(self, input):
-    # super().__init__(input)
-
-
-class End(Parser):
-    def __str__(self):
-        return str(self.result)
-
 
 class Base64Encode(Parser):
     def process(self):
-        if not isinstance(self.input, str):
-            raise KNEXInputMismatch(
-                f"{type(self).__name__} KNEX requires input of type 'str'"
-            )
-        return base64.b64encode(self.input.encode()).decode("ascii")
+        try:
+            return base64.b64encode(self.input.encode()).decode("ascii")
+        except Exception as e:
+            self.error = True
+            return str(e)
 
 
 class Base64Decode(Parser):
     def process(self):
-        if not isinstance(self.input, str):
-            raise KNEXInputMismatch(
-                f"{type(self).__name__} KNEX requires input of type 'str'"
-            )
-        return base64.b64decode(self.input).decode()
+        try:
+            return base64.b64decode(self.input).decode()
+        except Exception as e:
+            self.error = True
+            return str(e)
 
 
 class Split(Parser):
     def __init__(self, delimeter=" ", *args, **kwargs):
         self.delimeter = delimeter
         super().__init__(*args, **kwargs)
-        self.args = self.get_args()
+        # self.args = self.get_args()
 
     def process(self):
-        if not isinstance(self.input, str):
-            raise KNEXInputMismatch(
-                f"{type(self).__name__} KNEX requires input of type 'str'"
-            )
-        return self.input.split(self.delimeter)
+        try:
+            return self.input.split(self.delimeter)
+        except Exception as e:
+            self.error = True
+            return str(e)
 
 
 class GetIndex(Parser):
     def __init__(self, idx, *args, **kwargs):
         self.idx = idx
         super().__init__(*args, **kwargs)
-        self.args = self.get_args()
+        # self.args = self.get_args()
 
     def process(self):
-        if not isinstance(self.input, (list, set, tuple)):
-            raise KNEXInputMismatch(f"{type(self).__name__} KNEX requires an iterable")
         try:
             return self.input[self.idx]
-        except IndexError as e:
-            return e
+        except Exception as e:
+            self.error = True
+            return str(e)
 
 
 class ToUpper(Parser):
@@ -132,108 +113,121 @@ class ToUpper(Parser):
         super().__init__(*args, **kwargs)
 
     def process(self):
-        if not isinstance(self.input, str):
-            raise KNEXInputMismatch(
-                f"{type(self).__name__} KNEX requires input of type 'str'"
-            )
-        return self.input.upper()
+        try:
+            return self.input.upper()
+        except Exception as e:
+            self.error = True
+            return str(e)
 
 
 class GetField(Parser):
-    def __init__(self, field, **kwargs):
+    def __init__(self, field, *args, **kwargs):
         self.field = field
-        super().__init__(**kwargs)
+        super().__init__(*args, **kwargs)
 
     def process(self):
-        if not isinstance(self.input, dict):
-            raise KNEXInputMismatch(
-                f"{type(self).__name__} KNEX requires an input of dictionary"
-            )
         try:
             return self.input[self.field]
         except Exception as e:
-            return e
+            self.error = True
+            return str(e)
 
 
 class Count(Parser):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
     def process(self):
-        return len(self.input)
+        try:
+            return len(self.input)
+        except Exception as e:
+            self.error = True
+            return str(e)
 
 
 class ToLower(Parser):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
     def process(self):
-        if not isinstance(self.input, str):
-            raise KNEXInputMismatch(
-                f"{type(self).__name__} KNEX requires input of type 'str'"
-            )
-        return self.input.lower()
+        try:
+            return self.input.lower()
+        except Exception as e:
+            self.error = True
+            return str(e)
 
 
 class IpNetwork(Parser):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
     def process(self):
-        if not isinstance(self.input, str):
-            raise KNEXInputMismatch(
-                f"{type(self).__name__} KNEX requires input of type 'str'"
-            )
-        return str(IPv4Interface(self.input).network)
+        try:
+            return str(IPv4Interface(self.input).network)
+        except Exception as e:
+            self.error = True
+            return str(e)
 
 
 class RegexExtractAll(Parser):
-    def __init__(self, pattern, **kwargs):
+    def __init__(self, pattern, *args, **kwargs):
         self.pattern = pattern
-        super().__init__(**kwargs)
+        super().__init__(*args, **kwargs)
 
     def process(self):
-        if not isinstance(self.input, str):
-            raise KNEXInputMismatch(
-                f"{type(self).__name__} KNEX requires input of type 'str'"
-            )
-        return re.findall(self.pattern, self.input)
+        try:
+            return re.findall(self.pattern, self.input)
+        except Exception as e:
+            self.error = True
+            return str(e)
 
 
 class Concat(Parser):
-    def __init__(self, prefix="", suffix="", **kwargs):
+    def __init__(self, prefix="", suffix="", *args, **kwargs):
         self.prefix = prefix
         self.suffix = suffix
-        super().__init__(**kwargs)
+        super().__init__(*args, **kwargs)
 
     def process(self):
-        if not isinstance(self.input, str):
-            raise KNEXInputMismatch(
-                f"{type(self).__name__} KNEX requires an input of type 'str'"
-            )
-        return self.prefix + self.input + self.suffix
+        try:
+            return self.prefix + self.input + self.suffix
+        except Exception as e:
+            self.error = True
+            return str(e)
 
 
 class Append(Parser):
-    def __init__(self, suffix="", **kwargs):
+    def __init__(self, suffix="", *args, **kwargs):
         self.suffix = suffix
-        super().__init__(**kwargs)
+        super().__init__(*args, **kwargs)
 
     def process(self):
-        if not isinstance(self.input, str):
-            raise KNEXInputMismatch(
-                f"{type(self).__name__} KNEX requires an input of type 'str'"
-            )
-        return self.input + self.suffix
+        try:
+            return self.input + self.suffix
+        except Exception as e:
+            self.error = True
+            return str(e)
 
 
 class FirstListElement(Parser):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
     def process(self):
-        if not isinstance(self.input, (list, set, tuple)):
-            raise KNEXInputMismatch(
-                f"{type(self).__name__} KNEX requires input of iterable"
-            )
-        return self.input[0]
+        try:
+            return self.input[0]
+        except Exception as e:
+            self.error = True
+            return str(e)
 
 
 class LastListElement(Parser):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
     def process(self):
-        if not isinstance(self.input, (list, set, tuple)):
-            raise KNEXInputMismatch(
-                f"{type(self).__name__} KNEX requires input of iterable"
-            )
-        return self.input[-1]
+        try:
+            return self.input[-1]
+        except Exception as e:
+            self.error = True
+            return str(e)
