@@ -1,0 +1,64 @@
+[
+    {
+        "parser": "Base64Encode",
+        "input": "Clay",
+        "args": {},
+        "error": false,
+        "output": "Q2xheQ=="
+    },
+    {
+        "parser": "Base64Decode",
+        "input": "Q2xheQ==",
+        "args": {},
+        "error": false,
+        "output": "Clay"
+    },
+    {
+        "parser": "ToUpper",
+        "input": "Clay",
+        "args": {},
+        "error": false,
+        "output": "CLAY"
+    },
+    {
+        "parser": "Split",
+        "input": "CLAY",
+        "args": {
+            "delimeter": "A"
+        },
+        "error": false,
+        "output": [
+            "CL",
+            "Y"
+        ]
+    },
+    {
+        "parser": "GetIndex",
+        "input": [
+            "CL",
+            "Y"
+        ],
+        "args": {
+            "idx": 0
+        },
+        "error": false,
+        "output": "CL"
+    },
+    {
+        "parser": "Concat",
+        "input": "CL",
+        "args": {
+            "prefix": "",
+            "suffix": "AY"
+        },
+        "error": false,
+        "output": "CLAY"
+    },
+    {
+        "parser": "ToLower",
+        "input": "CLAY",
+        "args": {},
+        "error": false,
+        "output": "clay"
+    }
+]

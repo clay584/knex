@@ -5,8 +5,6 @@ from knex.parsers import (
     Base64Encode,
     Concat,
     GetIndex,
-    Parser,
-    RegexExtractAll,
     Split,
     Start,
     ToLower,

@@ -1,3 +1,5 @@
+import json
+
 from knex import __version__
 from knex.parsers import (
     Append,
@@ -134,3 +136,19 @@ def test_first_list_element():
 
 def test_last_list_element():
     assert (Start(["foo", "bar"]) > LastListElement()).result == "bar"  # nosec B101
+
+
+def test_history1():
+    with open("tests/history1.json", "r") as f:
+        golden = json.load(f)
+
+    assert (  # nosec B101
+        Start("Clay")
+        > Base64Encode()
+        > Base64Decode()
+        > ToUpper()
+        > Split("A")
+        > GetIndex(0)
+        > Concat(suffix="AY")
+        > ToLower()
+    ).history == golden
