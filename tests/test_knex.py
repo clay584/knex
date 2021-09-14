@@ -129,8 +129,8 @@ Virtual36             unassigned      YES    unset  up         	up
 def test_chain1():
     start = Parser("clay,michelle")
     end = End()
-    start > Base64Encode() > Base64Decode() > Split(",") > GetIndex(0) > end
-    assert end.result == "clay"  # nosec B101
+    start > Base64Encode() > Base64Decode() > Split(",") > GetIndex(0) > ToUpper() > end
+    assert end.result == "CLAY"  # nosec B101
 
 
 def test_concat():

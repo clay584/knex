@@ -14,7 +14,8 @@ from knex.parsers import (
 
 start = Start("foo,bar")
 # end = End()
-end = start > Split(",") > GetIndex(1) > ToUpper()
+end: End = start > Split(",") > GetIndex(1) > ToUpper()
+print(json.dumps(end.history, indent=4))
 base = Base64Encode()
 
 end = start > Base64Encode() > Base64Decode()
