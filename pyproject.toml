@@ -29,6 +29,7 @@ semgrep = "^0.64.0"
 black = "^21.8b0"
 pytest = "^6.2.5"
 mypy = "^0.910"
+pytest-cov = "^2.12.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
