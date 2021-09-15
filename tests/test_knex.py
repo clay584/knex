@@ -60,9 +60,9 @@ def test_split_raise():
 
 
 def test_split_no_raise():
-    assert (
+    assert (  # nosec B101
         Start(["clay,michelle"]) > Split(",")
-    ).result == "'list' object has no attribute 'split'"  # nosec B101
+    ).result == "'list' object has no attribute 'split'"
 
 
 def test_get_index():
@@ -79,9 +79,9 @@ def test_index_raise():
 
 
 def test_index_no_raise():
-    assert (
+    assert (  # nosec B101
         Start(Parser, raise_exception=False) > GetIndex(1)
-    ).result == "'type' object is not subscriptable"  # nosec B101
+    ).result == "'type' object is not subscriptable"
 
 
 def test_get_field():
@@ -188,9 +188,9 @@ def test_base64encode_raise():
 
 
 def test_base64encode():
-    assert (
+    assert (  # nosec B101
         Start(["Clay"]) > Base64Encode()
-    ).result == "'list' object has no attribute 'encode'"  # nosec B101
+    ).result == "'list' object has no attribute 'encode'"
 
 
 def test_base64decode_raise():
@@ -201,6 +201,6 @@ def test_base64decode_raise():
 
 
 def test_base64decode():
-    assert (
+    assert (  # nosec B101
         Start(["Clay"]) > Base64Decode()
-    ).result == "argument should be a bytes-like object or ASCII string, not 'list'"  # nosec B101
+    ).result == "argument should be a bytes-like object or ASCII string, not 'list'"
