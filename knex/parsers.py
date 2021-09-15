@@ -11,8 +11,9 @@ class KNEXInputMismatch(Exception):
 
 
 class Parser:
-    def __init__(self, input=None, *args, **kwargs):
+    def __init__(self, input=None, raise_exception=False, *args, **kwargs):
         self.input = input
+        self.raise_exception = raise_exception
         self.result = None
         self.args = None
         self.error = False
@@ -27,6 +28,7 @@ class Parser:
         args.pop("result")
         args.pop("args")
         args.pop("error")
+        args.pop("raise_exception")
         try:
             args.pop("history")
         except KeyError:
@@ -34,6 +36,7 @@ class Parser:
         return args
 
     def __gt__(self, other):
+        other.raise_exception = self.raise_exception
         other.input = self.process()
         other.result = other.process()
         history = OrderedDict()
@@ -64,6 +67,8 @@ class Start(Parser):
 
 class Base64Encode(Parser):
     def process(self):
+        if self.raise_exception:
+            return base64.b64encode(self.input.encode()).decode("ascii")
         try:
             return base64.b64encode(self.input.encode()).decode("ascii")
         except Exception as e:
@@ -73,6 +78,8 @@ class Base64Encode(Parser):
 
 class Base64Decode(Parser):
     def process(self):
+        if self.raise_exception:
+            return base64.b64decode(self.input).decode()
         try:
             return base64.b64decode(self.input).decode()
         except Exception as e:
@@ -87,6 +94,8 @@ class Split(Parser):
         # self.args = self.get_args()
 
     def process(self):
+        if self.raise_exception:
+            return self.input.split(self.delimeter)
         try:
             return self.input.split(self.delimeter)
         except Exception as e:
@@ -101,6 +110,8 @@ class GetIndex(Parser):
         # self.args = self.get_args()
 
     def process(self):
+        if self.raise_exception:
+            return self.input[self.idx]
         try:
             return self.input[self.idx]
         except Exception as e:
@@ -113,6 +124,8 @@ class ToUpper(Parser):
         super().__init__(*args, **kwargs)
 
     def process(self):
+        if self.raise_exception:
+            return self.input.upper()
         try:
             return self.input.upper()
         except Exception as e:
@@ -126,6 +139,8 @@ class GetField(Parser):
         super().__init__(*args, **kwargs)
 
     def process(self):
+        if self.raise_exception:
+            return self.input[self.field]
         try:
             return self.input[self.field]
         except Exception as e:
@@ -138,6 +153,8 @@ class Count(Parser):
         super().__init__(*args, **kwargs)
 
     def process(self):
+        if self.raise_exception:
+            return len(self.input)
         try:
             return len(self.input)
         except Exception as e:
@@ -150,6 +167,8 @@ class ToLower(Parser):
         super().__init__(*args, **kwargs)
 
     def process(self):
+        if self.raise_exception:
+            return self.input.lower()
         try:
             return self.input.lower()
         except Exception as e:
@@ -162,6 +181,8 @@ class IpNetwork(Parser):
         super().__init__(*args, **kwargs)
 
     def process(self):
+        if self.raise_exception:
+            return str(IPv4Interface(self.input).network)
         try:
             return str(IPv4Interface(self.input).network)
         except Exception as e:
@@ -175,6 +196,8 @@ class RegexExtractAll(Parser):
         super().__init__(*args, **kwargs)
 
     def process(self):
+        if self.raise_exception:
+            return re.findall(self.pattern, self.input)
         try:
             return re.findall(self.pattern, self.input)
         except Exception as e:
@@ -189,6 +212,8 @@ class Concat(Parser):
         super().__init__(*args, **kwargs)
 
     def process(self):
+        if self.raise_exception:
+            return self.prefix + self.input + self.suffix
         try:
             return self.prefix + self.input + self.suffix
         except Exception as e:
@@ -202,6 +227,8 @@ class Append(Parser):
         super().__init__(*args, **kwargs)
 
     def process(self):
+        if self.raise_exception:
+            return self.input + self.suffix
         try:
             return self.input + self.suffix
         except Exception as e:
@@ -214,6 +241,8 @@ class FirstListElement(Parser):
         super().__init__(*args, **kwargs)
 
     def process(self):
+        if self.raise_exception:
+            return self.input[0]
         try:
             return self.input[0]
         except Exception as e:
@@ -226,6 +255,8 @@ class LastListElement(Parser):
         super().__init__(*args, **kwargs)
 
     def process(self):
+        if self.raise_exception:
+            return self.input[-1]
         try:
             return self.input[-1]
         except Exception as e:

@@ -15,10 +15,11 @@ from knex.parsers import (
 # print(json.dumps(end.history, indent=4))
 # base = Base64Encode()
 
+
 print(
     json.dumps(
         (
-            Start("Clay")
+            Start(["Clay"], raise_exception=False)
             > Base64Encode()
             > Base64Decode()
             > ToUpper()

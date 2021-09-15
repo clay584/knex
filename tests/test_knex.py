@@ -52,10 +52,36 @@ def test_split():
     ]
 
 
+def test_split_raise():
+    try:
+        (Start(["clay,michelle"], raise_exception=True) > Split(","))
+    except Exception as e:
+        type(e).__name__ == "TypeError"
+
+
+def test_split_no_raise():
+    assert (
+        Start(["clay,michelle"]) > Split(",")
+    ).result == "'list' object has no attribute 'split'"  # nosec B101
+
+
 def test_get_index():
     assert (  # nosec B101
         Start(["clay", "michelle"]) > GetIndex(1)
     ).result == "michelle"
+
+
+def test_index_raise():
+    try:
+        (Start(Parser, raise_exception=True) > GetIndex(1))
+    except Exception as e:
+        assert type(e).__name__ == "TypeError"  # nosec B101
+
+
+def test_index_no_raise():
+    assert (
+        Start(Parser, raise_exception=False) > GetIndex(1)
+    ).result == "'type' object is not subscriptable"  # nosec B101
 
 
 def test_get_field():
@@ -152,3 +178,29 @@ def test_history1():
         > Concat(suffix="AY")
         > ToLower()
     ).history == golden
+
+
+def test_base64encode_raise():
+    try:
+        (Start(["Clay"], raise_exception=True) > Base64Encode())
+    except Exception as e:
+        assert type(e).__name__ == "AttributeError"  # nosec B101
+
+
+def test_base64encode():
+    assert (
+        Start(["Clay"]) > Base64Encode()
+    ).result == "'list' object has no attribute 'encode'"  # nosec B101
+
+
+def test_base64decode_raise():
+    try:
+        (Start(["Clay"], raise_exception=True) > Base64Decode())
+    except Exception as e:
+        assert type(e).__name__ == "TypeError"  # nosec B101
+
+
+def test_base64decode():
+    assert (
+        Start(["Clay"]) > Base64Decode()
+    ).result == "argument should be a bytes-like object or ASCII string, not 'list'"  # nosec B101
