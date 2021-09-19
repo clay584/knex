@@ -236,7 +236,7 @@ class Append(Parser):
             return str(e)
 
 
-class FirstListElement(Parser):
+class FirstElement(Parser):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

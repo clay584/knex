@@ -7,7 +7,7 @@ from knex.parsers import (
     Base64Encode,
     Concat,
     Count,
-    FirstListElement,
+    FirstElement,
     GetField,
     GetIndex,
     IpNetwork,
@@ -92,22 +92,6 @@ def test_chain1():
         > GetIndex(0)
         > ToUpper()
     ).result == "CLAY"
-
-
-def test_concat():
-    assert (Start("baz") > Concat("foo", "bar")).result == "foobazbar"  # nosec B101
-
-
-def test_append():
-    assert (Start("foo") > Append("bar")).result == "foobar"  # nosec B101
-
-
-def test_first_list_element():
-    assert (Start(["foo", "bar"]) > FirstListElement()).result == "foo"  # nosec B101
-
-
-def test_last_list_element():
-    assert (Start(["foo", "bar"]) > LastListElement()).result == "bar"  # nosec B101
 
 
 def test_history1():
@@ -279,74 +263,54 @@ def test_regex_extract_fail():
         Start([]) > RegexExtractAll("asdf")).result == "expected string or buffer"
 
 
+def test_concat_success():
+    assert (Start("baz") > Concat("foo", "bar")).result == "foobazbar"  # nosec B101
+
+def test_concat_fail():
+    assert (Start([]) > Concat("foo", "bar")).result == 'can only concatenate str (not "list") to str' # nosec B101
+
+def test_concat_raise():
+    try:
+        (Start([], raise_exception=True) > Concat("foo", "bar"))
+    except Exception as e:
+        assert type(e).__name__ == "TypeError"  # nosec B101
 
 
+def test_append_success():
+    assert (Start("foo") > Append("bar")).result == "foobar"  # nosec B101
+
+def test_append_fail():
+    assert (Start([]) > Append("bar")).result == 'can only concatenate list (not "str") to list'  # nosec B101
+
+def test_append_raise():
+    try:
+        (Start([], raise_exception=True) > Append("bar"))
+    except Exception as e:
+        assert type(e).__name__ == "TypeError"  # nosec B101
 
 
+def test_first_element_success():
+    assert (Start(["foo", "bar"]) > FirstElement()).result == "foo"  # nosec B101
+
+def test_first_element_fail():
+    assert (Start(Parser) > FirstElement()).result ==  "'type' object is not subscriptable" # nosec B101
+
+def test_first_element_raise():
+    try:
+        (Start("", raise_exception=True) > FirstElement())
+    except Exception as e:
+        assert type(e).__name__ == "IndexError"  # nosec B101
 
 
+def test_last_list_element_success():
+    assert (Start(["foo", "bar"]) > LastListElement()).result == "bar"  # nosec B101
 
+def test_last_list_element_fail():
+    assert (Start("") > LastListElement()).result == "string index out of range"  # nosec B101
 
-# def test__success():
-#     assert (Start() > ).result ==    # nosec B101
-
-# def test__fail():
-#     assert (Start() > ).result ==   # nosec B101
-
-# def test__raise():
-#     try:
-#         (Start() > Foo(raise_exception=True))
-#     except Exception as e:
-#         assert type(e).__name__ == ""  # nosec B101
-
-
-
-
-
-
-# def test__success():
-#     assert (Start() > ).result ==    # nosec B101
-
-# def test__fail():
-#     assert (Start() > ).result ==   # nosec B101
-
-# def test__raise():
-#     try:
-#         (Start() > Foo(raise_exception=True))
-#     except Exception as e:
-#         assert type(e).__name__ == ""  # nosec B101
-
-
-
-
-
-# def test__success():
-#     assert (Start() > ).result ==    # nosec B101
-
-# def test__fail():
-#     assert (Start() > ).result ==   # nosec B101
-
-# def test__raise():
-#     try:
-#         (Start() > Foo(raise_exception=True))
-#     except Exception as e:
-#         assert type(e).__name__ == ""  # nosec B101
-
-
-
-
-
-
-
-# def test__success():
-#     assert (Start() > ).result ==    # nosec B101
-
-# def test__fail():
-#     assert (Start() > ).result ==   # nosec B101
-
-# def test__raise():
-#     try:
-#         (Start() > Foo(raise_exception=True))
-#     except Exception as e:
-#         assert type(e).__name__ == ""  # nosec B101
+def test_last_list_element_raise():
+    try:
+        (Start("", raise_exception=True) > LastListElement())
+    except Exception as e:
+        assert type(e).__name__ == "IndexError"  # nosec B101
 
