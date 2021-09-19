@@ -83,6 +83,7 @@ def test_index_no_raise():
         Start(Parser, raise_exception=False) > GetIndex(1)
     ).result == "'type' object is not subscriptable"
 
+
 def test_chain1():
     assert (  # nosec B101
         Start("clay,michelle")
@@ -170,8 +171,6 @@ def test_get_field_fail():
     ).result == "list indices must be integers or slices, not str"
 
 
-
-
 def test_count_success():
     assert (Start({"foo": "bar"}) > Count()).result == 1  # nosec B101
 
@@ -185,11 +184,13 @@ def test_count_raise():
 
 def test_count_fail():
     assert (  # nosec B101
-        Start(Parser) > Count()).result == "object of type 'type' has no len()"
+        Start(Parser) > Count()
+    ).result == "object of type 'type' has no len()"
 
 
 def test_to_lower_success():
     assert (Start("FOOBAR") > ToLower()).result == "foobar"  # nosec B101
+
 
 def test_to_lower_raise():
     try:
@@ -200,12 +201,15 @@ def test_to_lower_raise():
 
 def test_to_lower_fail():
     assert (  # nosec B101
-        Start(Parser) > ToLower()).result == "type object 'Parser' has no attribute 'lower'"
+        Start(Parser) > ToLower()
+    ).result == "type object 'Parser' has no attribute 'lower'"
+
 
 def test_ip_network_success():
     assert (  # nosec B101
         Start("192.168.1.55/24") > IpNetwork()
     ).result == "192.168.1.0/24"
+
 
 def test_ip_network_raise():
     try:
@@ -215,8 +219,8 @@ def test_ip_network_raise():
 
 
 def test_ip_network_fail():
-    assert (  # nosec B101
-        Start("") > IpNetwork()).result == "Address cannot be empty"
+    assert (Start("") > IpNetwork()).result == "Address cannot be empty"  # nosec B101
+
 
 def test_regex_extract_success():
     rtr_output = """
@@ -246,10 +250,14 @@ Virtual36             unassigned      YES    unset  up         	up
         "192.168.191.2",
     ]
 
+
 def test_regex_extract_success2():
     input_str = "I've got a lovely bunch of coconuts."
     pattern = r"coco(\S+)\."
-    assert (Start(input_str) > RegexExtractAll(pattern)).result[0] == "nuts"  # nosec B101
+    assert (Start(input_str) > RegexExtractAll(pattern)).result[
+        0
+    ] == "nuts"  # nosec B101
+
 
 def test_regex_extract_raise():
     try:
@@ -260,14 +268,19 @@ def test_regex_extract_raise():
 
 def test_regex_extract_fail():
     assert (  # nosec B101
-        Start([]) > RegexExtractAll("asdf")).result == "expected string or buffer"
+        Start([]) > RegexExtractAll("asdf")
+    ).result == "expected string or buffer"
 
 
 def test_concat_success():
     assert (Start("baz") > Concat("foo", "bar")).result == "foobazbar"  # nosec B101
 
+
 def test_concat_fail():
-    assert (Start([]) > Concat("foo", "bar")).result == 'can only concatenate str (not "list") to str' # nosec B101
+    assert (
+        Start([]) > Concat("foo", "bar")
+    ).result == 'can only concatenate str (not "list") to str'  # nosec B101
+
 
 def test_concat_raise():
     try:
@@ -279,8 +292,12 @@ def test_concat_raise():
 def test_append_success():
     assert (Start("foo") > Append("bar")).result == "foobar"  # nosec B101
 
+
 def test_append_fail():
-    assert (Start([]) > Append("bar")).result == 'can only concatenate list (not "str") to list'  # nosec B101
+    assert (
+        Start([]) > Append("bar")
+    ).result == 'can only concatenate list (not "str") to list'  # nosec B101
+
 
 def test_append_raise():
     try:
@@ -292,8 +309,12 @@ def test_append_raise():
 def test_first_element_success():
     assert (Start(["foo", "bar"]) > FirstElement()).result == "foo"  # nosec B101
 
+
 def test_first_element_fail():
-    assert (Start(Parser) > FirstElement()).result ==  "'type' object is not subscriptable" # nosec B101
+    assert (
+        Start(Parser) > FirstElement()
+    ).result == "'type' object is not subscriptable"  # nosec B101
+
 
 def test_first_element_raise():
     try:
@@ -305,12 +326,15 @@ def test_first_element_raise():
 def test_last_list_element_success():
     assert (Start(["foo", "bar"]) > LastListElement()).result == "bar"  # nosec B101
 
+
 def test_last_list_element_fail():
-    assert (Start("") > LastListElement()).result == "string index out of range"  # nosec B101
+    assert (
+        Start("") > LastListElement()
+    ).result == "string index out of range"  # nosec B101
+
 
 def test_last_list_element_raise():
     try:
         (Start("", raise_exception=True) > LastListElement())
     except Exception as e:
         assert type(e).__name__ == "IndexError"  # nosec B101
-
