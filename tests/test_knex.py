@@ -149,9 +149,9 @@ def test_to_upper_raise():
 
 
 def test_to_upper_fail():
-    assert (
+    assert (  # nosec B101
         Start(["foobar"]) > ToUpper()
-    ).result == "'list' object has no attribute 'upper'"  # nosec B101
+    ).result == "'list' object has no attribute 'upper'"
 
 
 def test_get_field_success():
@@ -254,9 +254,9 @@ Virtual36             unassigned      YES    unset  up         	up
 def test_regex_extract_success2():
     input_str = "I've got a lovely bunch of coconuts."
     pattern = r"coco(\S+)\."
-    assert (Start(input_str) > RegexExtractAll(pattern)).result[
+    assert (Start(input_str) > RegexExtractAll(pattern)).result[  # nosec B101
         0
-    ] == "nuts"  # nosec B101
+    ] == "nuts"
 
 
 def test_regex_extract_raise():
@@ -277,9 +277,9 @@ def test_concat_success():
 
 
 def test_concat_fail():
-    assert (
+    assert (  # nosec B101
         Start([]) > Concat("foo", "bar")
-    ).result == 'can only concatenate str (not "list") to str'  # nosec B101
+    ).result == 'can only concatenate str (not "list") to str'
 
 
 def test_concat_raise():
@@ -294,9 +294,9 @@ def test_append_success():
 
 
 def test_append_fail():
-    assert (
+    assert (  # nosec B101
         Start([]) > Append("bar")
-    ).result == 'can only concatenate list (not "str") to list'  # nosec B101
+    ).result == 'can only concatenate list (not "str") to list'
 
 
 def test_append_raise():
@@ -311,9 +311,9 @@ def test_first_element_success():
 
 
 def test_first_element_fail():
-    assert (
+    assert (  # nosec B101
         Start(Parser) > FirstElement()
-    ).result == "'type' object is not subscriptable"  # nosec B101
+    ).result == "'type' object is not subscriptable"
 
 
 def test_first_element_raise():
@@ -328,9 +328,9 @@ def test_last_list_element_success():
 
 
 def test_last_list_element_fail():
-    assert (
+    assert (  # nosec B101
         Start("") > LastListElement()
-    ).result == "string index out of range"  # nosec B101
+    ).result == "string index out of range"
 
 
 def test_last_list_element_raise():
