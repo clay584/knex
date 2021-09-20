@@ -37,6 +37,3 @@ safety-db = "^2021.7.17"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.bandit]
-skips = ["B101"]
