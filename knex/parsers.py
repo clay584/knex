@@ -274,7 +274,7 @@ class TextFSMParse(Parser):
             results.append(this_dict)
         return {"result": results}
 
-    def process(self):  # sourcery skip: ensure-file-closed
+    def process(self):
         if self.raise_exception:
             with tempfile.NamedTemporaryFile() as fakefile:
                 fakefile.write(self.template.encode("utf-8"))

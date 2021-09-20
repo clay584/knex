@@ -361,6 +361,28 @@ def test_textfsm_success():
     assert (Start(input_data) > TextFSMParse(template)).result == golden  # nosec B101
 
 
+def test_textfsm_success2():
+    with open(
+        f"{os.path.dirname(os.path.realpath(__file__))}/templates/cisco_nxos_show_interfaces.textfsm",
+        "r",
+    ) as f:
+        template = f.read()
+    with open(
+        f"{os.path.dirname(os.path.realpath(__file__))}/raw/cisco_nxos_show_interface.raw",
+        "r",
+    ) as f:
+        input_data = f.read()
+    with open(
+        f"{os.path.dirname(os.path.realpath(__file__))}/golden/cisco_nxos_show_interface_default.json",
+        "r",
+    ) as f:
+        golden = json.loads(f.read())
+
+    assert (  # nosec B101
+        Start(input_data) > TextFSMParse(template, fmt="default")
+    ).result == golden
+
+
 def test_textfsm_fail():
     assert (  # nosec B101
         Start("") > TextFSMParse("")
@@ -368,7 +390,24 @@ def test_textfsm_fail():
 
 
 def test_textfsm_raise():
+    with open(
+        f"{os.path.dirname(os.path.realpath(__file__))}/templates/cisco_nxos_show_interfaces.textfsm",
+        "r",
+    ) as f:
+        template = f.read()
     try:
-        (Start("", raise_exception=True) > TextFSMParse(""))
+        (Start("", raise_exception=True) > TextFSMParse(template))
+    except Exception as e:
+        assert type(e).__name__ == "TextFSMTemplateError"  # nosec B101
+
+
+def test_textfsm_raise2():
+    with open(
+        f"{os.path.dirname(os.path.realpath(__file__))}/templates/cisco_nxos_show_interfaces.textfsm",
+        "r",
+    ) as f:
+        template = f.read()
+    try:
+        (Start("", raise_exception=True) > TextFSMParse(template, fmt="default"))
     except Exception as e:
         assert type(e).__name__ == "TextFSMTemplateError"  # nosec B101
