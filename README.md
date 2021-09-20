@@ -15,11 +15,11 @@ Python library for creating chainable data transformers.
 <!-- markdownlint-disable MD013 -->
 | General                           | String                               | Number        | Date                      | Other          |
 | --------------------------------- | ------------------------------------ | ------------- | ------------------------- | -------------- |
-| :heavy_check_mark: Append       | :heavy_check_mark: Base64Decode    | :x: Absolute  | :x: BetweenDates          | :x: ThisOrThat |
-| :heavy_check_mark: Count        | :heavy_check_mark: Base64Encode    | :x: Add       | :x: BetweenHours          | :x: URLDecode  |
-| :heavy_check_mark: FirstElement | :heavy_check_mark: Concat          | :x: Ceil      | :x: DateStringToISOFormat | :x: URLEncode  |
-| :heavy_check_mark: GetField     | :x: Cut                              | :x: Divide    | :x: DateToEpoch           |                |
-| :heavy_check_mark: GetIndex     | :x: DumpJSON                         | :x: Floor     | :x: DateToString          |                |
+| :heavy_check_mark: Append       | :heavy_check_mark: Base64Decode    | :x: Absolute  | :x: BetweenDates          | :x: TextFSM |
+| :heavy_check_mark: Count        | :heavy_check_mark: Base64Encode    | :x: Add       | :x: BetweenHours          | :x: ThisOrThat  |
+| :heavy_check_mark: FirstElement | :heavy_check_mark: Concat          | :x: Ceil      | :x: DateStringToISOFormat | :x: Ttp  |
+| :heavy_check_mark: GetField     | :x: Cut                              | :x: Divide    | :x: DateToEpoch           |       :x: URLDecode         |
+| :heavy_check_mark: GetIndex     | :x: DumpJSON                         | :x: Floor     | :x: DateToString          |         :x: URLEncode       |
 | :x: If-Then-Else                  | :x: FromString                       | :x: Modulus   | :x: FormattedDateToEpoch  |
 | :x: IndexOf                       | :x: JSONUnescape                     | :x: Multiply  | :x: ModifyDateTime        |                |
 | :x: Join                          | :heavy_check_mark: Length          | :x: Round     | :x: TimeStampToDate       |                |
