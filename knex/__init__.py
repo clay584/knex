@@ -16,4 +16,5 @@ __all__ = [
     "Append",
     "FirstElement",
     "LastElement",
+    "TextFSMParse",
 ]

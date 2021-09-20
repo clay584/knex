@@ -2,7 +2,8 @@ import base64
 from collections import OrderedDict
 from copy import copy
 from ipaddress import IPv4Interface
-
+import textfsm
+import tempfile
 import regex as re
 
 
@@ -255,6 +256,45 @@ class LastElement(Parser):
             return self.input[-1]
         try:
             return self.input[-1]
+        except Exception as e:
+            self.error = True
+            return str(e)
+
+
+class TextFSMParse(Parser):
+    def __init__(self, template, fmt="dict", *args, **kwargs):
+        self.template = template
+        self.fmt = fmt if fmt == "dict" else "default"
+        super().__init__(*args, **kwargs)
+
+    def _to_dict(self, data, headers):
+        results = []
+        for i in data:
+            this_dict = {headers[count].lower(): j for count, j in enumerate(i)}
+            results.append(this_dict)
+        return {"result": results}
+
+    def process(self):
+        if self.raise_exception:
+            with tempfile.NamedTemporaryFile() as fakefile:
+                fakefile.write(self.template.encode("utf-8"))
+                fakefile.seek(0)
+                parser = textfsm.TextFSM(fakefile)
+                parsed = parser.ParseText(self.input)
+                headers = parser.header
+            if self.fmt == "dict":
+                return self._to_dict(parsed, headers)
+            return parsed
+        try:
+            with tempfile.NamedTemporaryFile() as fakefile:
+                fakefile.write(self.template.encode("utf-8"))
+                fakefile.seek(0)
+                parser = textfsm.TextFSM(fakefile)
+                parsed = parser.ParseText(self.input)
+                headers = parser.header
+            if self.fmt == "dict":
+                return self._to_dict(parsed, headers)
+            return parsed
         except Exception as e:
             self.error = True
             return str(e)

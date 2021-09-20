@@ -1,5 +1,5 @@
 import json
-
+import os
 from knex import __version__
 from knex.parsers import (
     Append,
@@ -18,6 +18,7 @@ from knex.parsers import (
     Start,
     ToLower,
     ToUpper,
+    TextFSMParse,
 )
 
 
@@ -338,3 +339,75 @@ def test_last_element_raise():
         (Start("", raise_exception=True) > LastElement())
     except Exception as e:
         assert type(e).__name__ == "IndexError"  # nosec B101
+
+
+def test_textfsm_success():
+    with open(
+        f"{os.path.dirname(os.path.realpath(__file__))}/templates/cisco_nxos_show_interfaces.textfsm",
+        "r",
+    ) as f:
+        template = f.read()
+    with open(
+        f"{os.path.dirname(os.path.realpath(__file__))}/raw/cisco_nxos_show_interface.raw",
+        "r",
+    ) as f:
+        input_data = f.read()
+    with open(
+        f"{os.path.dirname(os.path.realpath(__file__))}/golden/cisco_nxos_show_interface.json",
+        "r",
+    ) as f:
+        golden = json.loads(f.read())
+
+    assert (Start(input_data) > TextFSMParse(template)).result == golden  # nosec B101
+
+
+def test_textfsm_success2():
+    with open(
+        f"{os.path.dirname(os.path.realpath(__file__))}/templates/cisco_nxos_show_interfaces.textfsm",
+        "r",
+    ) as f:
+        template = f.read()
+    with open(
+        f"{os.path.dirname(os.path.realpath(__file__))}/raw/cisco_nxos_show_interface.raw",
+        "r",
+    ) as f:
+        input_data = f.read()
+    with open(
+        f"{os.path.dirname(os.path.realpath(__file__))}/golden/cisco_nxos_show_interface_default.json",
+        "r",
+    ) as f:
+        golden = json.loads(f.read())
+
+    assert (  # nosec B101
+        Start(input_data) > TextFSMParse(template, fmt="default")
+    ).result == golden
+
+
+def test_textfsm_fail():
+    assert (  # nosec B101
+        Start("") > TextFSMParse("")
+    ).result == "Missing state 'Start'."
+
+
+def test_textfsm_raise():
+    with open(
+        f"{os.path.dirname(os.path.realpath(__file__))}/templates/cisco_nxos_show_interfaces.textfsm",
+        "r",
+    ) as f:
+        template = f.read()
+    try:
+        (Start("", raise_exception=True) > TextFSMParse(template))
+    except Exception as e:
+        assert type(e).__name__ == "TextFSMTemplateError"  # nosec B101
+
+
+def test_textfsm_raise2():
+    with open(
+        f"{os.path.dirname(os.path.realpath(__file__))}/templates/cisco_nxos_show_interfaces.textfsm",
+        "r",
+    ) as f:
+        template = f.read()
+    try:
+        (Start("", raise_exception=True) > TextFSMParse(template, fmt="default"))
+    except Exception as e:
+        assert type(e).__name__ == "TextFSMTemplateError"  # nosec B101
