@@ -23,16 +23,60 @@ Python library for creating chainable data transformers.
 >>>
 >>> pattern = r"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b"
 >>>
->>> result = (
+>>> end = (
                 Start(input_data)
                 > RegexExtractAll(pattern)
                 > GetIndex(0)
                 > Concat("", "/24")
                 > IpNetwork()
-             ).result
+             )
 >>>
->>> print(result)
+>>> print(end.result)
 192.168.190.0/24
+>>> print(json.dumps(end.history, indent=4))
+[
+    {
+        "parser": "RegexExtractAll",
+        "input": "...omitted for brevity...",
+        "args": {
+            "pattern": "\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b"
+        },
+        "error": false,
+        "output": [
+            "192.168.190.235",
+            "192.168.191.2"
+        ]
+    },
+    {
+        "parser": "GetIndex",
+        "input": [
+            "192.168.190.235",
+            "192.168.191.2"
+        ],
+        "args": {
+            "idx": 0
+        },
+        "error": false,
+        "output": "192.168.190.235"
+    },
+    {
+        "parser": "Concat",
+        "input": "192.168.190.235",
+        "args": {
+            "prefix": "",
+            "suffix": "/24"
+        },
+        "error": false,
+        "output": "192.168.190.235/24"
+    },
+    {
+        "parser": "IpNetwork",
+        "input": "192.168.190.235/24",
+        "args": {},
+        "error": false,
+        "output": "192.168.190.0/24"
+    }
+]
 >>>
 
 ```
