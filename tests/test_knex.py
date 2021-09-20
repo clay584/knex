@@ -11,7 +11,7 @@ from knex.parsers import (
     GetField,
     GetIndex,
     IpNetwork,
-    LastListElement,
+    LastElement,
     Parser,
     RegexExtractAll,
     Split,
@@ -323,18 +323,18 @@ def test_first_element_raise():
         assert type(e).__name__ == "IndexError"  # nosec B101
 
 
-def test_last_list_element_success():
-    assert (Start(["foo", "bar"]) > LastListElement()).result == "bar"  # nosec B101
+def test_last_element_success():
+    assert (Start(["foo", "bar"]) > LastElement()).result == "bar"  # nosec B101
 
 
-def test_last_list_element_fail():
+def test_last_element_fail():
     assert (  # nosec B101
-        Start("") > LastListElement()
+        Start("") > LastElement()
     ).result == "string index out of range"
 
 
-def test_last_list_element_raise():
+def test_last_element_raise():
     try:
-        (Start("", raise_exception=True) > LastListElement())
+        (Start("", raise_exception=True) > LastElement())
     except Exception as e:
         assert type(e).__name__ == "IndexError"  # nosec B101

@@ -6,10 +6,6 @@ from ipaddress import IPv4Interface
 import regex as re
 
 
-class KNEXInputMismatch(Exception):
-    pass
-
-
 class Parser:
     def __init__(self, input=None, raise_exception=False, *args, **kwargs):
         self.input = input
@@ -250,7 +246,7 @@ class FirstElement(Parser):
             return str(e)
 
 
-class LastListElement(Parser):
+class LastElement(Parser):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
