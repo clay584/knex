@@ -6,6 +6,15 @@ Python library for creating chainable data transformers.
 
 `pip install knex`
 
+## Supported Transformers
+
+<!-- markdownlint-disable MD013 -->
+| General      | String             | Number         | Date               | Other                  |
+| ------------ | ------------------ | -------------- | ------------------ | ---------------------- |
+| \[x\] Append | \[x\] Base64Decode | \[ \] Absolute | \[ \] BetweenDates | \[ \] ConvertAllExcept |
+| \[x\] Count  |                    |                |                    |                        |
+<!-- markdownlint-enable MD013 -->
+
 ## Usage
 
 ```python
@@ -97,6 +106,6 @@ Python library for creating chainable data transformers.
 1. Run tests and validate coverage: `pytest -v --cov=knex --cov-report html tests`
 2. Commit all changes, and have clean git repo on `main` branch.
 3. Bump version: `bump2version <major|minor|patch>`
-4. Push to git: `git push origin main --tags`
+4. Push to git: `git push && git push --tags`
 5. Build for PyPI: `poetry build`
 6. Publish to PyPI: `poetry publish`
