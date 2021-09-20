@@ -21,6 +21,7 @@ license = "GNU GPLv3"
 [tool.poetry.dependencies]
 python = "^3.7"
 regex = "^2021.8.28"
+textfsm = "^1.1.2"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.9.2"
