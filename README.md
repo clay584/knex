@@ -8,15 +8,15 @@ Python library for creating chainable data transformers.
 
 ## Supported Transformers
 
-\[ \] - Planned
+:x: - Planned
 
-\[x\] - Implemented
+:heavy_check_mark: - Implemented
 
 <!-- markdownlint-disable MD013 -->
 | General      | String             | Number         | Date               | Other                  |
 | ------------ | ------------------ | -------------- | ------------------ | ---------------------- |
-| [x] Append | [x] Base64Decode | [ ] Absolute | [ ] BetweenDates | [ ] ConvertAllExcept |
-| [x] Count  |                    |                |                    |                        |
+| :heavy_check_mark: Append | :heavy_check_mark: Base64Decode | :x: Absolute | :x: BetweenDates | :x: ConvertAllExcept |
+| :heavy_check_mark: Count  |                    |                |                    |                        |
 <!-- markdownlint-enable MD013 -->
 
 ## Usage
