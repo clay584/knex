@@ -10,27 +10,27 @@ Python library for creating chainable data transformers.
 
 :x: - Planned
 
-c - Implemented
+:heavy_check_mark: - Implemented
 
 <!-- markdownlint-disable MD013 -->
 | General                           | String                               | Number        | Date                      | Other          |
 | --------------------------------- | ------------------------------------ | ------------- | ------------------------- | -------------- |
-| :heavy\_check\_mark: Append       | :heavy\_check\_mark: Base64Decode    | :x: Absolute  | :x: BetweenDates          | :x: ThisOrThat |
-| :heavy\_check\_mark: Count        | :heavy\_check\_mark: Base64Encode    | :x: Add       | :x: BetweenHours          | :x: URLDecode  |
-| :heavy\_check\_mark: FirstElement | :heavy\_check\_mark: Concat          | :x: Ceil      | :x: DateStringToISOFormat | :x: URLEncode  |
-| :heavy\_check\_mark: GetField     | :x: Cut                              | :x: Divide    | :x: DateToEpoch           |                |
-| :heavy\_check\_mark: GetIndex     | :x: DumpJSON                         | :x: Floor     | :x: DateToString          |                |
+| :heavy_check_mark: Append       | :heavy_check_mark: Base64Decode    | :x: Absolute  | :x: BetweenDates          | :x: ThisOrThat |
+| :heavy_check_mark: Count        | :heavy_check_mark: Base64Encode    | :x: Add       | :x: BetweenHours          | :x: URLDecode  |
+| :heavy_check_mark: FirstElement | :heavy_check_mark: Concat          | :x: Ceil      | :x: DateStringToISOFormat | :x: URLEncode  |
+| :heavy_check_mark: GetField     | :x: Cut                              | :x: Divide    | :x: DateToEpoch           |                |
+| :heavy_check_mark: GetIndex     | :x: DumpJSON                         | :x: Floor     | :x: DateToString          |                |
 | :x: If-Then-Else                  | :x: FromString                       | :x: Modulus   | :x: FormattedDateToEpoch  |
 | :x: IndexOf                       | :x: JSONUnescape                     | :x: Multiply  | :x: ModifyDateTime        |                |
-| :x: Join                          | :heavy\_check\_mark: Length          | :x: Round     | :x: TimeStampToDate       |                |
+| :x: Join                          | :heavy_check_mark: Length          | :x: Round     | :x: TimeStampToDate       |                |
 | :x: Jq                            | :x: LoadJSON                         | :x: Subtract  |                           |                |
-| :x: JsonToTable                   | :heavy\_check\_mark: RegexExtractAll | :x: SumList   |                           |                |
-| :heavy\_check\_mark: LastElement  | :x: RegexReplace                     | :x: ToPercent |                           |
-| :x: ReverseList                   | :heavy\_check\_mark: Split           |               |                           |                |
+| :x: JsonToTable                   | :heavy_check_mark: RegexExtractAll | :x: SumList   |                           |                |
+| :heavy_check_mark: LastElement  | :x: RegexReplace                     | :x: ToPercent |                           |
+| :x: ReverseList                   | :heavy_check_mark: Split           |               |                           |                |
 | :x: SetIfEmpty                    | :x: Substring                        |               |                           |                |
-| :x: Slice                         | :heavy\_check\_mark: ToLower         |               |                           |                |
+| :x: Slice                         | :heavy_check_mark: ToLower         |               |                           |                |
 | :x: Sort                          | :x: ToString                         |               |                           |                |
-| :x: Stringify                     | :heavy\_check\_mark: ToUpper         |               |                           |                |
+| :x: Stringify                     | :heavy_check_mark: ToUpper         |               |                           |                |
 | :x: Unique                        | :x: Trim                             |               |                           |                |
 | :x: WhereFieldEquals              |                                      |               |                           |                |
 <!-- markdownlint-enable MD013 -->
