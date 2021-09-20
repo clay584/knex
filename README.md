@@ -52,5 +52,6 @@ Python library for creating chainable data transformers.
 
 1. Commit all changes, and have clean git repo on `main` branch.
 2. Bump version: `bump2version <major|minor|patch>`
-3. Build for PyPI: `poetry build`
-4. Publish to PyPI: `poetry publish`
+3. Push to git: `git push origin main --tags`
+4. Build for PyPI: `poetry build`
+5. Publish to PyPI: `poetry publish`
