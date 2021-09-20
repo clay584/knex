@@ -50,8 +50,9 @@ Python library for creating chainable data transformers.
 
 ### Publishing to PyPI
 
-1. Commit all changes, and have clean git repo on `main` branch.
-2. Bump version: `bump2version <major|minor|patch>`
-3. Push to git: `git push origin main --tags`
-4. Build for PyPI: `poetry build`
-5. Publish to PyPI: `poetry publish`
+1. Run tests and validate coverage: `pytest -v --cov=knex --cov-report html tests`
+2. Commit all changes, and have clean git repo on `main` branch.
+3. Bump version: `bump2version <major|minor|patch>`
+4. Push to git: `git push origin main --tags`
+5. Build for PyPI: `poetry build`
+6. Publish to PyPI: `poetry publish`
