@@ -17,26 +17,5 @@ jobs:
           python-version: 3.9
       - name: Poetry Install
         uses: knowsuchagency/poetry-install@v2
-
       - name: pytest
-        id: pytest
-        uses: alexanderdamiani/pytester-cov@v1.2.0
-        with:
-          pytest-root-dir: "."
-          cov-omit-list: "test/*, temp/main3.py, temp/main4.py"
-          cov-threshold-single: ${{ env.COVERAGE_SINGLE }}
-          cov-threshold-total: ${{ env.COVERAGE_TOTAL }}
-
-      - name: Coverage single fail - exit
-        if: ${{ steps.pytester-cov.outputs.cov-threshold-single-fail == 'true' }} # yamllint disable-line rule:line-length
-        # yamllint disable rule:line-length
-        run: |
-          echo "cov single fail ${{ steps.pytester-cov.outputs.cov-threshold-single-fail }}"
-          exit 1
-
-      - name: Coverage total fail - exit
-        if: ${{ steps.pytester-cov.outputs.cov-threshold-total-fail == 'true' }}
-        run: |
-          echo "cov single fail ${{ steps.pytester-cov.outputs.cov-threshold-total-fail }}"
-          exit 1
-      # yamllint disable rule:line-length
+        run: pytest -v
