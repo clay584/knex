@@ -18,4 +18,4 @@ jobs:
       - name: Poetry Install
         uses: knowsuchagency/poetry-install@v2
       - name: pytest
-        run: pytest -v
+        run: poetry run pytest -v
