@@ -1,0 +1,21 @@
+---
+name: Pytest, Coverage
+on: [push, pull_request] # yamllint disable-line rule:truthy
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      COVERAGE_SINGLE: 60
+      COVERAGE_TOTAL: 60
+
+    steps:
+      - name: setup
+        uses: actions/checkout@v2
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Poetry Install
+        uses: knowsuchagency/poetry-install@v2
+      - name: pytest
+        run: poetry run pytest -v
