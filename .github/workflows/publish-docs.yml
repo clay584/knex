@@ -1,0 +1,14 @@
+name: Publish Docs to GH Pages
+on:
+  push:
+    tags:
+      - "v*.*.*"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy Docs to GH Pages
+        uses: mhausenblas/mkdocs-deploy-gh-pages@1.23
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
