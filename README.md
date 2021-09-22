@@ -117,15 +117,14 @@ Python library for creating chainable data transformers.
 1. Install Poetry
 2. Clone the repo: `git clone https://github.com/clay584/knex && cd knex`
 3. Install pre-requisits for developement: `poetry install`
-4. Install PyPI API Key: `poetry config pypi-token.pypi <token>`
-5. Activate the environment: `poetry shell`
-6. Install git pre-commit hook: `pre-commit install && pre-commit autoupdate`
+4. Activate the environment: `poetry shell`
+5. Install git pre-commit hook: `pre-commit install && pre-commit autoupdate`
 
-### Publishing to PyPI
+### Making Changes
 
 1. Run tests and validate coverage: `pytest -v --cov=knex --cov-report html tests`
 2. Commit all changes, and have clean git repo on `main` branch.
 3. Bump version: `bump2version <major|minor|patch>`
 4. Push to git: `git push && git push --tags`
-5. Build for PyPI: `poetry build`
-6. Publish to PyPI: `poetry publish`
+5. Build for PyPI: Automatically done by Github Actions when a tag is pushed.
+6. Publish to PyPI: Automatically done by Github Actions when a tag is pushed.
