@@ -2,7 +2,7 @@
 
 name: pytester-cov
 uses: alexanderdamiani/pytester-cov@v1.2.1
-on: ["push", "pull_request"]  # yamllint disable-line rule:truthy
+on: [push, pull_request]  # yamllint disable-line rule:truthy
 jobs:
   build:
 
