@@ -5,7 +5,7 @@ description = "Python library for building composable text parsers"
 readme = "README-pypi.md"
 repository = "https://github.com/clay584/knex"
 homepage = "https://clay584.github.io/knex/"
-documenation = "https://clay584.github.io/knex/"
+documentation = "https://clay584.github.io/knex/"
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "Programming Language :: Python :: 3.7",
