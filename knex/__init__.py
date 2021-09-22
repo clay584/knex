@@ -19,7 +19,7 @@ __all__ = [
     "TextFSMParse",
 ]
 
-from parsers import (
+from .parsers import (
     Start,
     Base64Decode,
     Base64Encode,
