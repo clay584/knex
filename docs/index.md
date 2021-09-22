@@ -1,4 +1,4 @@
-# Welcome to Knex (v0.2.1)
+# Welcome to Knex (v0.2.2)
 
 Knex is a Python library for creating chainable data transformers.
 
