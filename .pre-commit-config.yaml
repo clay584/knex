@@ -1,16 +1,13 @@
 ---
-
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.0.1
     hooks:
       - id: check-ast
       - id: check-json
-      # - id: check-yaml
       - id: check-merge-conflict
       - id: check-toml
       - id: debug-statements
-      - id: detect-aws-credentials
       - id: detect-private-key
   - repo: https://github.com/asottile/dead
     rev: v1.4.0
@@ -45,14 +42,6 @@ repos:
     rev: 1.7.0
     hooks:
       - id: bandit
-  # - repo: https://github.com/PyCQA/isort
-  #   rev: 5.9.3
-  #   hooks:
-  #     - id: isort
-  - repo: https://gitlab.com/smop/pre-commit-hooks
-    rev: v1.0.0
-    hooks:
-      - id: check-poetry
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.28.1
     hooks:
