@@ -1,12 +1,9 @@
 ---
-name: Pytest, Coverage
+name: Pytest
 on: [push, pull_request] # yamllint disable-line rule:truthy
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      COVERAGE_SINGLE: 60
-      COVERAGE_TOTAL: 60
 
     steps:
       - name: setup
