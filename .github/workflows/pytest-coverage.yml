@@ -40,7 +40,3 @@ jobs:
           echo "cov single fail ${{ steps.pytester-cov.outputs.cov-threshold-total-fail }}"
           exit 1
       # yamllint disable rule:line-length
-      - name: Commit pytest coverage table
-        uses: peter-evans/commit-comment@v1
-        with:
-          body: ${{ steps.pytester-cov.outputs.output-table }}
