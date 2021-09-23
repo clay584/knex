@@ -8,7 +8,15 @@ import regex as re
 
 
 class Parser:
+    """Base Parser object"""
+
     def __init__(self, input=None, raise_exception=False, *args, **kwargs):
+        """Base parser initialization.
+
+        Args:
+            input (Any, optional): Input to the parser. Defaults to None.
+            raise_exception (bool, optional): Whether or not to raise a proper python exception if there is a parsing failure. Defaults to False.
+        """
         self.input = input
         self.raise_exception = raise_exception
         self.result = None
@@ -17,9 +25,19 @@ class Parser:
         super().__init__(*args, **kwargs)
 
     def process(self):
+        """Process method. Takes input, and trasforms it.
+
+        Returns:
+            Any: Output from the transformation.
+        """
         return self.input
 
     def get_args(self):
+        """Get arguments passed into the parser
+
+        Returns:
+            dict: All arguments passed in, and their values.
+        """
         args = copy(self.__dict__)
         args.pop("input")
         args.pop("result")
@@ -33,6 +51,14 @@ class Parser:
         return args
 
     def __gt__(self, other):
+        """Greater-than `>` dunder method overload allowing for the chaining of parsers together. (e.g. `Parser > Parser > Parser`)
+
+        Args:
+            other (Parser): The right hand operand being fed into the `__gt__` method. (`LeftHandOperand > RightHandOperand`)
+
+        Returns:
+            other: Returns the right hand operand after processing is completed.
+        """
         other.raise_exception = self.raise_exception
         other.input = self.process()
         other.result = other.process()
@@ -56,14 +82,28 @@ class Parser:
 
 
 class Start(Parser):
+    """Starting parser object. All transformations must start with the Start object."""
+
     def __init__(self, input, *args, **kwargs):
+        """Starter object to begin a chain of parsing.
+
+        Args:
+            input (Any): Any form of input that is to be parsed so long as it is a simple data type. (e.g. numbers, sequences, dicts, sets, etc.)
+        """
         super().__init__(input, *args, **kwargs)
         self.result = self.input
         self.args = self.get_args()
 
 
 class Base64Encode(Parser):
+    """Base64 encode a string"""
+
     def process(self):
+        """Process input and generate output.
+
+        Returns:
+            str: Base64 encoded string in ascii
+        """
         if self.raise_exception:
             return base64.b64encode(self.input.encode()).decode("ascii")
         try:

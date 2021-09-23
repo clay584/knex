@@ -1,0 +1,4 @@
+[run]
+source = knex
+omit = */.cache/*
+command_line = -m pytest
