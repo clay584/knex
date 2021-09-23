@@ -4,6 +4,8 @@ edit_uri: edit/main/docs/
 nav:
   - Home: index.md
   - About: about.md
+  - API Reference:
+      - Parsers: parsers-reference.md
 theme:
   name: material
   palette:
@@ -19,4 +21,9 @@ theme:
       toggle:
         icon: material/lightbulb-outline
         name: Switch to light mode
-highlightjs: true
+# highlightjs: true
+plugins:
+  - search
+  - mkdocstrings:
+      watch:
+        - knex
