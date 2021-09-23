@@ -2,6 +2,9 @@
 
 Python library for creating chainable data transformers.
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/48345d8053824abaab78d5acfadf1c91)](https://www.codacy.com/gh/clay584/knex/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=clay584/knex&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/48345d8053824abaab78d5acfadf1c91)](https://www.codacy.com/gh/clay584/knex/dashboard?utm_source=github.com&utm_medium=referral&utm_content=clay584/knex&utm_campaign=Badge_Coverage)
+
 ## Installation
 
 `pip install knex`
