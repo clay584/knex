@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "knex"
-version = "0.2.12"
+version = "0.2.13"
 description = "Python library for building composable text parsers"
 readme = "README-pypi.md"
 repository = "https://github.com/clay584/knex"
