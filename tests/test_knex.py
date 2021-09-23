@@ -23,7 +23,7 @@ from knex.parsers import (
 
 
 def test_version():
-    assert __version__ == "0.2.7"  # nosec B101
+    assert __version__ == "0.2.8"  # nosec B101
 
 
 def test_parser():
