@@ -46,3 +46,11 @@ repos:
     rev: v1.1.0
     hooks:
       - id: detect-secrets
+  - repo: local
+    hooks:
+      - id: poetry->requirements.txt
+        name: poetry->requirements.txt
+        entry: bash -c 'diff -q -s <(poetry export -f requirements.txt) <(cat requirements.txt)'  # yamllint disable-line
+        language: system
+        types: [python]
+        pass_filenames: false

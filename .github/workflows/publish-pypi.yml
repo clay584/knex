@@ -1,5 +1,6 @@
+---
 name: Publish to PyPI
-on:
+on:  # yamllint disable-line
   push:
     tags:
       - "v*.*.*"

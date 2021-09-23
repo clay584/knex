@@ -1,5 +1,6 @@
+---
 name: Publish Docs to GH Pages
-on:
+on:  # yamllint disable-line
   push:
     tags:
       - "v*.*.*"

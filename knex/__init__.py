@@ -1,3 +1,4 @@
+"""knex: Python library for creating chainable data transformers."""
 __version__ = "0.2.5"
 
 __all__ = [
@@ -23,6 +24,7 @@ from .parsers import (
     Start,
     Base64Decode,
     Base64Encode,
+    Count,
     Split,
     GetField,
     GetIndex,

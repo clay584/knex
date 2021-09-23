@@ -2,8 +2,11 @@
 
 Python library for creating chainable data transformers.
 
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/clay584/knex/Pytest/main)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/48345d8053824abaab78d5acfadf1c91)](https://www.codacy.com/gh/clay584/knex/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=clay584/knex&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/48345d8053824abaab78d5acfadf1c91)](https://www.codacy.com/gh/clay584/knex/dashboard?utm_source=github.com&utm_medium=referral&utm_content=clay584/knex&utm_campaign=Badge_Coverage)
+[![Known Vulnerabilities](https://snyk.io/test/github/clay584/knex/badge.svg)](https://snyk.io/test/github/clay584/knex)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/knex)
 
 ## Installation
 
@@ -131,3 +134,11 @@ Python library for creating chainable data transformers.
 4. Push to git: `git push && git push --tags`
 5. Build for PyPI: Automatically done by Github Actions when a tag is pushed.
 6. Publish to PyPI: Automatically done by Github Actions when a tag is pushed.
+
+### Snyk Fix
+
+Snyk needs requirements.txt so there is a pre-commit hook that does a
+Poetry export and compares to make sure the requirements.txt matches. If not,
+it will fail. In order to fix, run this.
+
+`poetry export -f requirements.txt > requirements.txt`
