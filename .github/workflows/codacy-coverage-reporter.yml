@@ -8,6 +8,10 @@ jobs:
     name: codacy-coverage-reporter
     steps:
       - uses: actions/checkout@v2
+      - name: Run coverage
+        run: coverage run
+      - name: Run coverage xml
+        run: coverage xml
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
