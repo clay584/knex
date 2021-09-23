@@ -1,7 +1,7 @@
 # KNEX
 
 <!-- markdownlint-disable MD001 -->
-#### Latest Release (v0.2.5)
+#### Latest Release (v0.2.6)
 <!-- markdownlint-enable MD001 -->
 Python library for creating chainable data transformers.
 
