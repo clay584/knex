@@ -16,9 +16,9 @@ jobs:
       - name: pytest
         run: poetry run pytest -v
       - name: Run coverage
-        run: coverage run
-      - name: Run coverage xml
-        run: coverage xml
+        run: poetry run coverage run
+      - name: Run coverage xml -o cobertura.xml
+        run: poetry run coverage xml
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
