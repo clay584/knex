@@ -1,6 +1,6 @@
 ---
 name: Pytest
-on: [push, pull_request] # yamllint disable-line rule:truthy
+on: [push, pull_request] # yamllint disable-line
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,9 +18,16 @@ jobs:
       - name: Run coverage
         run: poetry run coverage run
       - name: Run coverage xml
-        run: poetry run coverage xml -o cobertura.xml
-      - name: Run codacy-coverage-reporter
-        uses: codacy/codacy-coverage-reporter-action@v1
-        with:
-          api-token: ${{ secrets.CODACY_API_TOKEN }}
-          coverage-reports: cobertura.xml
+        run: poetry run coverage xml
+      # - name: Run codacy-coverage-reporter
+      #   uses: codacy/codacy-coverage-reporter-action@v1
+      #   with:
+      #     api-token: ${{ secrets.CODACY_API_TOKEN }}
+      #     coverage-reports: coverage.xml
+      - name: Submit to codacy
+        run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage.xml # yamllint disable-line
+        env:
+          CODACY_API_TOKEN: ${{ secrets.CODACY_API_TOKEN }}
+          CODACY_ORGANIZATION_PROVIDER: gh
+          CODACY_USERNAME: clay584
+          CODACY_PROJECT_NAME: knex
