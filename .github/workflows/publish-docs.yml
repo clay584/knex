@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install wheel build deps
-        uses: apt-get install python3 python3-pip ipython3 build-essential python-dev python3-dev  # yamllint disable-line
+        uses: sudo apt-get install python3 python3-pip ipython3 build-essential python-dev python3-dev -y  # yamllint disable-line
       - uses: actions/checkout@v2
       - name: Deploy Docs to GH Pages
         uses: mhausenblas/mkdocs-deploy-gh-pages@1.23
