@@ -14,7 +14,7 @@ Python library for creating chainable data transformers.
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/knex)
 
 [![PyPI](https://img.shields.io/pypi/v/knex)](https://pypi.org/project/knex/)
-![PyPI - Downloads](https://img.shields.io/pypi/dm/knex)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/knex)](https://pypistats.org/packages/knex)
 
 ## Installation
 
