@@ -11,9 +11,8 @@ class Parser:
 
     """Base Parser object"""
 
-    def __init__(self, input=None, raise_exception=False, *args, **kwargs):
+    def __init__(self, *args, input=None, raise_exception=False, **kwargs):
         """Base parser initialization.
-
         Args:
             input (Any, optional): Input to the parser. Defaults to None.
             raise_exception (bool, optional): Whether or not to raise a proper python exception if there is a parsing failure. Defaults to False.
@@ -127,7 +126,7 @@ class Base64Decode(Parser):
 
 
 class Split(Parser):
-    def __init__(self, delimeter=" ", *args, **kwargs):
+    def __init__(self, *args, delimeter=" ", **kwargs):
         self.delimeter = delimeter
         super().__init__(*args, **kwargs)
         # self.args = self.get_args()
@@ -245,7 +244,7 @@ class RegexExtractAll(Parser):
 
 
 class Concat(Parser):
-    def __init__(self, prefix="", suffix="", *args, **kwargs):
+    def __init__(self, *args, prefix="", suffix="", **kwargs):
         self.prefix = prefix
         self.suffix = suffix
         super().__init__(*args, **kwargs)
@@ -261,7 +260,7 @@ class Concat(Parser):
 
 
 class Append(Parser):
-    def __init__(self, suffix="", *args, **kwargs):
+    def __init__(self, *args, suffix="", **kwargs):
         self.suffix = suffix
         super().__init__(*args, **kwargs)
 
@@ -304,7 +303,7 @@ class LastElement(Parser):
 
 
 class TextFSMParse(Parser):
-    def __init__(self, template, fmt="dict", *args, **kwargs):
+    def __init__(self, template, *args, fmt="dict", **kwargs):
         self.template = template
         self.fmt = fmt if fmt == "dict" else "default"
         super().__init__(*args, **kwargs)
