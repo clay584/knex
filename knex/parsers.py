@@ -11,7 +11,7 @@ class Parser:
 
     """Base Parser object"""
 
-    def __init__(self, *args, input=None, raise_exception=False, **kwargs):
+    def __init__(self, input=None, raise_exception=False, *args, **kwargs):
         """Base parser initialization.
         Args:
             input (Any, optional): Input to the parser. Defaults to None.
@@ -126,7 +126,7 @@ class Base64Decode(Parser):
 
 
 class Split(Parser):
-    def __init__(self, *args, delimeter=" ", **kwargs):
+    def __init__(self, delimeter=" ", *args, **kwargs):
         """Initialize Split class
 
         Args:
@@ -254,7 +254,7 @@ class RegexExtractAll(Parser):
 
 
 class Concat(Parser):
-    def __init__(self, *args, prefix="", suffix="", **kwargs):
+    def __init__(self, prefix="", suffix="", *args, **kwargs):
         """Initialize Concat class.
 
         Args:
@@ -276,7 +276,7 @@ class Concat(Parser):
 
 
 class Append(Parser):
-    def __init__(self, *args, suffix="", **kwargs):
+    def __init__(self, suffix="", *args, **kwargs):
         """Initialize Append class.
 
         Args:
