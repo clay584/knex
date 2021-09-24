@@ -127,6 +127,11 @@ class Base64Decode(Parser):
 
 class Split(Parser):
     def __init__(self, *args, delimeter=" ", **kwargs):
+        """Initialize Split class
+
+        Args:
+            delimeter (str, optional): Delimiter for which to split string with. Defaults to " ".
+        """
         self.delimeter = delimeter
         super().__init__(*args, **kwargs)
         # self.args = self.get_args()
@@ -230,6 +235,11 @@ class IpNetwork(Parser):
 
 class RegexExtractAll(Parser):
     def __init__(self, pattern, *args, **kwargs):
+        """Initialize RegexExtractAll class.
+
+        Args:
+            pattern (str): Regular expression pattern (not compiled)
+        """
         self.pattern = pattern
         super().__init__(*args, **kwargs)
 
@@ -245,6 +255,12 @@ class RegexExtractAll(Parser):
 
 class Concat(Parser):
     def __init__(self, *args, prefix="", suffix="", **kwargs):
+        """Initialize Concat class.
+
+        Args:
+            prefix (str, optional): Prefix to append to front of input. Defaults to "".
+            suffix (str, optional): Suffix to append to end of input. Defaults to "".
+        """
         self.prefix = prefix
         self.suffix = suffix
         super().__init__(*args, **kwargs)
@@ -261,6 +277,11 @@ class Concat(Parser):
 
 class Append(Parser):
     def __init__(self, *args, suffix="", **kwargs):
+        """Initialize Append class.
+
+        Args:
+            suffix (str, optional): Suffix to append to end of string. Defaults to "".
+        """
         self.suffix = suffix
         super().__init__(*args, **kwargs)
 
