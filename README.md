@@ -5,15 +5,15 @@
 <!-- markdownlint-enable MD001 -->
 Python library for creating chainable data transformers.
 
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/clay584/knex/Pytest/main)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/clay584/knex/Pytest/main)](https://github.com/clay584/knex/actions)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/48345d8053824abaab78d5acfadf1c91)](https://www.codacy.com/gh/clay584/knex/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=clay584/knex&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/48345d8053824abaab78d5acfadf1c91)](https://www.codacy.com/gh/clay584/knex/dashboard?utm_source=github.com&utm_medium=referral&utm_content=clay584/knex&utm_campaign=Badge_Coverage)
 [![Known Vulnerabilities](https://snyk.io/test/github/clay584/knex/badge.svg)](https://snyk.io/test/github/clay584/knex)
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/clay584/knex/main)
+[![GitHub last commit (branch)](https://img.shields.io/github/last-commit/clay584/knex/main)](https://github.com/clay584/knex/commits/main)
 
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/knex)
 
-![PyPI](https://img.shields.io/pypi/v/knex)
+[![PyPI](https://img.shields.io/pypi/v/knex)](https://pypi.org/project/knex/)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/knex)
 
 ## Installation
