@@ -61,7 +61,7 @@ repos:
     hooks:
       - id: poetry->requirements-dev.txt
         name: poetry->requirements-dev.txt
-        entry: bash -c 'diff -q -s <(poetry export -f requirements.txt --dev) <(cat requirements-dev.txt)'  # yamllint disable-line
+        entry: bash -c 'diff -q -s <(pip freeze > requirements.txt) <(cat requirements-dev.txt)'  # yamllint disable-line
         language: system
         types: [python]
         pass_filenames: false
