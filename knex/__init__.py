@@ -1,5 +1,5 @@
 """knex: Python library for creating chainable data transformers."""
-__version__ = "0.2.14"
+__version__ = "0.2.15"
 
 __all__ = [
     "Start",
