@@ -39,6 +39,7 @@ safety-db = "^2021.7.17"
 mkdocs = "^1.2.2"
 mkdocs-material = "^7.2.8"
 mkdocstrings = "^0.16.0"
+prospector = "^1.5.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
