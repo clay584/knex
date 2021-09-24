@@ -8,6 +8,7 @@ import regex as re
 
 
 class Parser:
+
     """Base Parser object"""
 
     def __init__(self, input=None, raise_exception=False, *args, **kwargs):
@@ -16,6 +17,7 @@ class Parser:
         Args:
             input (Any, optional): Input to the parser. Defaults to None.
             raise_exception (bool, optional): Whether or not to raise a proper python exception if there is a parsing failure. Defaults to False.
+
         """
         self.input = input
         self.raise_exception = raise_exception
