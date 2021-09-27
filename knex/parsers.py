@@ -11,14 +11,14 @@ class Parser:
 
     """Base Parser object"""
 
-    def __init__(self, input=None, raise_exception=False, *args, **kwargs):
+    def __init__(self, input_data=None, raise_exception=False, *args, **kwargs):
         """Base parser initialization.
         Args:
-            input (Any, optional): Input to the parser. Defaults to None.
+            input_data (Any, optional): Input to the parser. Defaults to None.
             raise_exception (bool, optional): Whether or not to raise a proper python exception if there is a parsing failure. Defaults to False.
 
         """
-        self.input = input
+        self.input = input_data
         self.raise_exception = raise_exception
         self.result = None
         self.args = None
@@ -85,13 +85,13 @@ class Parser:
 class Start(Parser):
     """Starting parser object. All transformations must start with the Start object."""
 
-    def __init__(self, input, *args, **kwargs):
+    def __init__(self, input_data, *args, **kwargs):
         """Starter object to begin a chain of parsing.
 
         Args:
             input (Any): Any form of input that is to be parsed so long as it is a simple data type. (e.g. numbers, sequences, dicts, sets, etc.)
         """
-        super().__init__(input, *args, **kwargs)
+        super().__init__(input_data, *args, **kwargs)
         self.result = self.input
         self.args = self.get_args()
 
@@ -329,34 +329,30 @@ class TextFSMParse(Parser):
         self.fmt = fmt if fmt == "dict" else "default"
         super().__init__(*args, **kwargs)
 
-    def _to_dict(self, data, headers):
+    @staticmethod
+    def _to_dict(data, headers):
         results = []
         for i in data:
             this_dict = {headers[count].lower(): j for count, j in enumerate(i)}
             results.append(this_dict)
         return {"result": results}
 
+    def _parse(self):
+        with tempfile.NamedTemporaryFile() as fakefile:
+            fakefile.write(self.template.encode("utf-8"))
+            fakefile.seek(0)
+            parser = textfsm.TextFSM(fakefile)
+            parsed = parser.ParseText(self.input)
+            headers = parser.header
+        if self.fmt == "dict":
+            return self._to_dict(parsed, headers)
+        return parsed
+
     def process(self):
         if self.raise_exception:
-            with tempfile.NamedTemporaryFile() as fakefile:
-                fakefile.write(self.template.encode("utf-8"))
-                fakefile.seek(0)
-                parser = textfsm.TextFSM(fakefile)
-                parsed = parser.ParseText(self.input)
-                headers = parser.header
-            if self.fmt == "dict":
-                return self._to_dict(parsed, headers)
-            return parsed
+            return self._parse()
         try:
-            with tempfile.NamedTemporaryFile() as fakefile:
-                fakefile.write(self.template.encode("utf-8"))
-                fakefile.seek(0)
-                parser = textfsm.TextFSM(fakefile)
-                parsed = parser.ParseText(self.input)
-                headers = parser.header
-            if self.fmt == "dict":
-                return self._to_dict(parsed, headers)
-            return parsed
+            return self._parse()
         except Exception as e:
             self.error = True
             return str(e)
