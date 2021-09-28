@@ -164,8 +164,9 @@ Docs are built and published automatically using Github Actions.
 1. Add the tests for the parser in `./tests/test_knex.py`.
 2. Add the parser in `./knex/parsers.py` with docstrings.
 3. Write amazing code until all tests are passing.
-4. Add the parser in `./gen_table.py`.
-5. Run `./gen_table.py`. It will generate that stupid markdown table
+4. Add the parser in `./knex/__init__.py`.
+5. Add the parser in `./gen_table.py`.
+6. Run `./gen_table.py`. It will generate that stupid markdown table
 and insert it into `README.md`.
 
 ### Generating Plain Old requirements.txt
