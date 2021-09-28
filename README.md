@@ -34,7 +34,7 @@ Python library for creating chainable data transformers.
 | :heavy_check_mark: FirstElement | :heavy_check_mark: Concat          | :x: Ceil      | :x: DateStringToISOFormat | :x: Ttp  |
 | :heavy_check_mark: GetField     | :x: Cut                              | :x: Divide    | :x: DateToEpoch           |       :x: URLDecode         |
 | :heavy_check_mark: GetIndex     | :x: DumpJSON                         | :x: Floor     | :x: DateToString          |         :x: URLEncode       |
-| :x: If-Then-Else                  | :x: FromString                       | :x: Modulus   | :x: FormattedDateToEpoch  |
+| :x: If-Then-Else                  | :x: FromString                       | :x: Modulus   | :x: FormattedDateToEpoch  |  :heavy_check_mark: MacAddress |
 | :x: IndexOf                       | :x: JSONUnescape                     | :x: Multiply  | :x: ModifyDateTime        |                |
 | :x: Join                          | :heavy_check_mark: Length          | :x: Round     | :x: TimeStampToDate       |                |
 | :x: Jq                            | :x: LoadJSON                         | :x: Subtract  |                           |                |

@@ -5,6 +5,7 @@ from ipaddress import IPv4Interface
 import textfsm
 import tempfile
 import regex as re
+from macaddr import MacAddress as MacAddr
 
 
 class Parser:
@@ -464,6 +465,37 @@ class TextFSMParse(Parser):
             return self._parse()
         try:
             return self._parse()
+        except Exception as e:
+            self.error = True
+            return str(e)
+
+
+class MacAddress(Parser):
+    """Parse MAC addresses and output in user-defined format"""
+
+    def __init__(self, *args, size=2, sep=":", **kwargs):
+        """Initialize by providing size and separator.
+
+        Args:
+            size (int, optional): Group size between separators. Defaults to 2.
+            sep (str, optional): Separator between octets of the mac address. Defaults to ":".
+        """
+        self.size = size
+        self.sep = sep
+        super().__init__(*args, **kwargs)
+
+    def process(self):
+        """Parse and format mac address.
+
+        Returns:
+            str: Mac address in user provided format.
+        """
+        if self.raise_exception:
+            mac = MacAddr(self.input)
+            return mac.format(size=self.size, sep=self.sep)
+        try:
+            mac = MacAddr(self.input)
+            return mac.format(size=self.size, sep=self.sep)
         except Exception as e:
             self.error = True
             return str(e)

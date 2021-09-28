@@ -24,6 +24,7 @@ license = "GNU GPLv3"
 python = "^3.7"
 regex = "^2021.8.28"
 textfsm = "^1.1.2"
+macaddr = "^2.1"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.9.2"
@@ -39,7 +40,6 @@ safety-db = "^2021.7.17"
 mkdocs = "^1.2.2"
 mkdocs-material = "^7.2.8"
 mkdocstrings = "^0.16.0"
-prospector = "^1.5.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

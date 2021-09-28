@@ -19,6 +19,7 @@ from knex.parsers import (
     ToLower,
     ToUpper,
     TextFSMParse,
+    MacAddress,
 )
 
 
@@ -411,3 +412,23 @@ def test_textfsm_raise2():
         (Start("", raise_exception=True) > TextFSMParse(template, fmt="default"))
     except Exception as e:
         assert type(e).__name__ == "TextFSMTemplateError"  # nosec B101
+
+
+def test_macaddress_success():
+    assert (  # nosec B101
+        Start("0000.1111.2222") > MacAddress()
+    ).result == "00:00:11:11:22:22"
+
+
+def test_macaddress_fail():
+    assert (  # nosec B101
+        Start("0000.1111.ZZZZ") > MacAddress()
+    ).result == "Invalid MAC address: 0000.1111.ZZZZ"
+
+
+def test_macaddress_raise():
+    try:
+        (Start("0000.1111.2222", raise_exception=True) > MacAddress())
+        (Start("0000.1111.ZZZZ", raise_exception=True) > MacAddress())
+    except Exception as e:
+        assert type(e).__name__ == "ValueError"  # nosec B101
