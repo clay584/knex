@@ -12,7 +12,7 @@ class Parser:
     """Base Parser object"""
 
     def __init__(self, input_data=None, raise_exception=False, *args, **kwargs):
-        """Base parser initialization.
+        """Base parser initialization. This does not need to be called as an end user of this library.
         Args:
             input_data (Any, optional): Input to the parser. Defaults to None.
             raise_exception (bool, optional): Whether or not to raise a proper python exception if there is a parsing failure. Defaults to False.
@@ -100,7 +100,7 @@ class Base64Encode(Parser):
     """Base64 encode a string"""
 
     def process(self):
-        """Process input and generate output.
+        """Process a string and return its base64 encoded value.
 
         Returns:
             str: Base64 encoded string in ascii
@@ -115,7 +115,14 @@ class Base64Encode(Parser):
 
 
 class Base64Decode(Parser):
+    """Base64 decode a string"""
+
     def process(self):
+        """Process a base64 encoded string, and return its decoded value.
+
+        Returns:
+            [type]: [description]
+        """
         if self.raise_exception:
             return base64.b64decode(self.input).decode()
         try:
@@ -126,6 +133,8 @@ class Base64Decode(Parser):
 
 
 class Split(Parser):
+    """Split a string into a list"""
+
     def __init__(self, delimeter=" ", *args, **kwargs):
         """Initialize Split class
 
@@ -137,6 +146,11 @@ class Split(Parser):
         # self.args = self.get_args()
 
     def process(self):
+        """Splits string into its parts.
+
+        Returns:
+            list: A list of parts of the original input.
+        """
         if self.raise_exception:
             return self.input.split(self.delimeter)
         try:
@@ -147,12 +161,24 @@ class Split(Parser):
 
 
 class GetIndex(Parser):
+    """Gets an element of an iterable like a list or set"""
+
     def __init__(self, idx, *args, **kwargs):
+        """Initialize by providing the index of the element to return.
+
+        Args:
+            idx (int): Index of the element to fetch from the iterable
+        """
         self.idx = idx
         super().__init__(*args, **kwargs)
         # self.args = self.get_args()
 
     def process(self):
+        """Fetches the value of the index of the iterable given in as input.
+
+        Returns:
+            Any: The value contained in the iterable at the provided index.
+        """
         if self.raise_exception:
             return self.input[self.idx]
         try:
@@ -163,10 +189,14 @@ class GetIndex(Parser):
 
 
 class ToUpper(Parser):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    """Convert string to upper case"""
 
     def process(self):
+        """Process an input string and convert to upper case.
+
+        Returns:
+            str: Upper cased string.
+        """
         if self.raise_exception:
             return self.input.upper()
         try:
@@ -177,11 +207,23 @@ class ToUpper(Parser):
 
 
 class GetField(Parser):
+    """Get the value of a dictionary by key"""
+
     def __init__(self, field, *args, **kwargs):
+        """Initialize GetField class.
+
+        Args:
+            field (str): The key name to fetch.
+        """
         self.field = field
         super().__init__(*args, **kwargs)
 
     def process(self):
+        """Fetches the value in a dict given the provided key.
+
+        Returns:
+            Any: The value of the provided key in the input dictionary.
+        """
         if self.raise_exception:
             return self.input[self.field]
         try:
@@ -192,10 +234,14 @@ class GetField(Parser):
 
 
 class Count(Parser):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    """Count the number of items in an iterable"""
 
     def process(self):
+        """Counts the number of items in an iterable.
+
+        Returns:
+            int: The number of items found.
+        """
         if self.raise_exception:
             return len(self.input)
         try:
@@ -206,10 +252,14 @@ class Count(Parser):
 
 
 class ToLower(Parser):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    """Convert a string to lower case"""
 
     def process(self):
+        """Convert string to lower case.
+
+        Returns:
+            str: Lower cased string.
+        """
         if self.raise_exception:
             return self.input.lower()
         try:
@@ -220,10 +270,14 @@ class ToLower(Parser):
 
 
 class IpNetwork(Parser):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    """Calculates the Network Address of a given IP address in CIDR notation"""
 
     def process(self):
+        """Calculate network address and prefix given a CIDR notated IPv4 address.
+
+        Returns:
+            str: Network address and prefix length in CIDR notation (e.g. 10.0.0.0/24)
+        """
         if self.raise_exception:
             return str(IPv4Interface(self.input).network)
         try:
@@ -234,8 +288,10 @@ class IpNetwork(Parser):
 
 
 class RegexExtractAll(Parser):
+    """Extract all matches from a string given a regex pattern"""
+
     def __init__(self, pattern, *args, **kwargs):
-        """Initialize RegexExtractAll class.
+        """Extract all matches from a string given a regex pattern
 
         Args:
             pattern (str): Regular expression pattern (not compiled)
@@ -244,6 +300,11 @@ class RegexExtractAll(Parser):
         super().__init__(*args, **kwargs)
 
     def process(self):
+        """Process string with regex pattern and return matches or None.
+
+        Returns:
+            list, None: A list of matches or None if no matches found.
+        """
         if self.raise_exception:
             return re.findall(self.pattern, self.input)
         try:
@@ -254,6 +315,8 @@ class RegexExtractAll(Parser):
 
 
 class Concat(Parser):
+    """Concatinate string with optional prefix and suffix"""
+
     def __init__(self, prefix="", suffix="", *args, **kwargs):
         """Initialize Concat class.
 
@@ -266,6 +329,11 @@ class Concat(Parser):
         super().__init__(*args, **kwargs)
 
     def process(self):
+        """Process input string and concatinate with prefix and suffix.
+
+        Returns:
+            str: Concatinated string.
+        """
         if self.raise_exception:
             return self.prefix + self.input + self.suffix
         try:
@@ -276,6 +344,8 @@ class Concat(Parser):
 
 
 class Append(Parser):
+    """Append value to end of string"""
+
     def __init__(self, suffix="", *args, **kwargs):
         """Initialize Append class.
 
@@ -286,6 +356,11 @@ class Append(Parser):
         super().__init__(*args, **kwargs)
 
     def process(self):
+        """Append input with suffix.
+
+        Returns:
+            str: Appended string.
+        """
         if self.raise_exception:
             return self.input + self.suffix
         try:
@@ -296,10 +371,14 @@ class Append(Parser):
 
 
 class FirstElement(Parser):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    """Get first element of iterable"""
 
     def process(self):
+        """Get first element of input iterable.
+
+        Returns:
+            Any: The first element of the input iterable.
+        """
         if self.raise_exception:
             return self.input[0]
         try:
@@ -310,10 +389,14 @@ class FirstElement(Parser):
 
 
 class LastElement(Parser):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    """Get last element of iterable"""
 
     def process(self):
+        """Get last element of the input iterable.
+
+        Returns:
+            Any: The last element of the input iterable.
+        """
         if self.raise_exception:
             return self.input[-1]
         try:
@@ -324,13 +407,31 @@ class LastElement(Parser):
 
 
 class TextFSMParse(Parser):
+    """Parse text using TextFSM parser"""
+
     def __init__(self, template, *args, fmt="dict", **kwargs):
+        """Initialize class by providing a template as a string.
+
+        Args:
+            template (str): TextFSM template string (not a file handle object as TextFSM usually requires)
+            fmt (str, optional): Output format. `dict` format will return a list of dicts, \
+            but `native` format will return the native TextFSM format. Options are `dict` or `native`. Defaults to `dict`.
+        """
         self.template = template
-        self.fmt = fmt if fmt == "dict" else "default"
+        self.fmt = fmt if fmt == "dict" else "native"
         super().__init__(*args, **kwargs)
 
     @staticmethod
     def _to_dict(data, headers):
+        """Utility method to convert native TextFSM format to list of dicts.
+
+        Args:
+            data (Any): Native TextFSM parsed object.
+            headers (list): List of field names (equivalent of headers of a CSV file).
+
+        Returns:
+            list: Returns list of dicts of TextFSM parsed data.
+        """
         results = []
         for i in data:
             this_dict = {headers[count].lower(): j for count, j in enumerate(i)}
@@ -338,6 +439,11 @@ class TextFSMParse(Parser):
         return {"result": results}
 
     def _parse(self):
+        """Parse with TextFSM library.
+
+        Returns:
+            list: List of results from TextFSM parsing in native TextFSM format.
+        """
         with tempfile.NamedTemporaryFile() as fakefile:
             fakefile.write(self.template.encode("utf-8"))
             fakefile.seek(0)
@@ -349,6 +455,11 @@ class TextFSMParse(Parser):
         return parsed
 
     def process(self):
+        """Parse text with TextFSM parser.
+
+        Returns:
+            list: Native TextFSM parsed data in `dict` or `native` format.
+        """
         if self.raise_exception:
             return self._parse()
         try:

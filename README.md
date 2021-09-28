@@ -137,16 +137,27 @@ Python library for creating chainable data transformers.
 ### Making Changes
 
 1. Run tests and validate coverage: `pytest -v --cov=knex --cov-report html tests`
+    * The HTML coverage report will be located at `./htmlcov/index.html`.
 2. Commit all changes, and have clean git repo on `main` branch.
 3. Bump version: `bump2version <major|minor|patch>`
 4. Push to git: `git push && git push --tags`
 5. Build for PyPI: Automatically done by Github Actions when a tag is pushed.
 6. Publish to PyPI: Automatically done by Github Actions when a tag is pushed.
 
-### Snyk Fix
+### Documentation
 
-Snyk needs requirements.txt so there is a pre-commit hook that does a
-Poetry export and compares to make sure the requirements.txt matches. If not,
-it will fail. In order to fix, run this.
+Docs are created automatically using `mkdocs` and `mkdocstring`.
+Testing docs live can be done using `mkdocs serve -a localhost:<port>`.
+Docs are built and published automatically using Github Actions.
 
-`poetry export -f requirements.txt > requirements.txt`
+### Generating Plain Old requirements.txt
+
+There are a few of the CI tools that require standard requirements.txt format
+(not Poetry). Therefore when adding new dependencies with Poetry, we need to
+sync those to regular old requirements.txt files. This can be done with the
+following commands.
+
+1. `poetry export --without-hashes -f requirements.txt > requirements.txt`
+2. `poetry export --without-hashes -f requirements.txt --dev > requirements-dev.txt`
+
+Pre-commit will make sure these are in sync if we forget.
