@@ -478,7 +478,7 @@ class MacAddress(Parser):
 
         Args:
             size (int, optional): Group size between separators. Defaults to 2.
-            sep (str, optional): Separator between octets of the mac address. Defaults to "".
+            sep (str, optional): Separator between octets of the mac address. Defaults to ":".
         """
         self.size = size
         self.sep = sep
