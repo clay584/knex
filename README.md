@@ -27,26 +27,28 @@ Python library for creating chainable data transformers.
 :heavy_check_mark: - Implemented
 
 <!-- markdownlint-disable MD013 -->
-| General                           | String                               | Number        | Date                      | Other          |
-| --------------------------------- | ------------------------------------ | ------------- | ------------------------- | -------------- |
-| :heavy_check_mark: Append       | :heavy_check_mark: Base64Decode    | :x: Absolute  | :x: BetweenDates          | :heavy_check_mark: TextFSMParse |
-| :heavy_check_mark: Count        | :heavy_check_mark: Base64Encode    | :x: Add       | :x: BetweenHours          | :x: ThisOrThat  |
-| :heavy_check_mark: FirstElement | :heavy_check_mark: Concat          | :x: Ceil      | :x: DateStringToISOFormat | :x: Ttp  |
-| :heavy_check_mark: GetField     | :x: Cut                              | :x: Divide    | :x: DateToEpoch           |       :x: URLDecode         |
-| :heavy_check_mark: GetIndex     | :x: DumpJSON                         | :x: Floor     | :x: DateToString          |         :x: URLEncode       |
-| :x: If-Then-Else                  | :x: FromString                       | :x: Modulus   | :x: FormattedDateToEpoch  |  :heavy_check_mark: MacAddress |
-| :x: IndexOf                       | :x: JSONUnescape                     | :x: Multiply  | :x: ModifyDateTime        |                |
-| :x: Join                          | :heavy_check_mark: Length          | :x: Round     | :x: TimeStampToDate       |                |
-| :x: Jq                            | :x: LoadJSON                         | :x: Subtract  |                           |                |
-| :x: JsonToTable                   | :heavy_check_mark: RegexExtractAll | :x: SumList   |                           |                |
-| :heavy_check_mark: LastElement  | :x: RegexReplace                     | :x: ToPercent |                           |
-| :x: ReverseList                   | :heavy_check_mark: Split           |               |                           |                |
-| :x: SetIfEmpty                    | :x: Substring                        |               |                           |                |
-| :x: Slice                         | :heavy_check_mark: ToLower         |               |                           |                |
-| :x: Sort                          | :x: ToString                         |               |                           |                |
-| :x: Stringify                     | :heavy_check_mark: ToUpper         |               |                           |                |
-| :x: Unique                        | :x: Trim                             |               |                           |                |
-| :x: WhereFieldEquals              |                                      |               |                           |                |
+<!-- start replace -->
+|                                                   General                                                    |                                                       String                                                       |   Number    |          Date           |                                                    Other                                                     |
+|--------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|-------------|-------------------------|--------------------------------------------------------------------------------------------------------------|
+|:heavy_check_mark: [Append](https://clay584.github.io/knex/parsers-reference/#knex.parsers.Append)            |:heavy_check_mark: [Base64Decode](https://clay584.github.io/knex/parsers-reference/#knex.parsers.Base64Decode)      |:x: Absolute |:x: BetweenDates         |:heavy_check_mark: [MacAddress](https://clay584.github.io/knex/parsers-reference/#knex.parsers.MacAddress)    |
+|:heavy_check_mark: [Count](https://clay584.github.io/knex/parsers-reference/#knex.parsers.Count)              |:heavy_check_mark: [Base64Encode](https://clay584.github.io/knex/parsers-reference/#knex.parsers.Base64Encode)      |:x: Add      |:x: BetweenHours         |:heavy_check_mark: [TextFSMParse](https://clay584.github.io/knex/parsers-reference/#knex.parsers.TextFSMParse)|
+|:heavy_check_mark: [FirstElement](https://clay584.github.io/knex/parsers-reference/#knex.parsers.FirstElement)|:heavy_check_mark: [Concat](https://clay584.github.io/knex/parsers-reference/#knex.parsers.Concat)                  |:x: Ceil     |:x: DateStringToISOFormat|:x: ThisOrThat                                                                                                |
+|:heavy_check_mark: [GetField](https://clay584.github.io/knex/parsers-reference/#knex.parsers.GetField)        |:x: Cut                                                                                                             |:x: Divide   |:x: DateToEpoch          |:x: Ttp                                                                                                       |
+|:heavy_check_mark: [GetIndex](https://clay584.github.io/knex/parsers-reference/#knex.parsers.GetIndex)        |:x: DumpJSON                                                                                                        |:x: Floor    |:x: DateToString         |:x: URLDecode                                                                                                 |
+|:x: If-Then-Else                                                                                              |:x: FromString                                                                                                      |:x: Modulus  |:x: FormattedDateToEpoch |:x: URLEncode                                                                                                 |
+|:x: IndexOf                                                                                                   |:x: JSONUnescape                                                                                                    |:x: Multiply |:x: ModifyDateTime       |                                                                                                              |
+|:x: Join                                                                                                      |:heavy_check_mark: [Length](https://clay584.github.io/knex/parsers-reference/#knex.parsers.Length)                  |:x: Round    |:x: TimeStampToDate      |                                                                                                              |
+|:x: Jq                                                                                                        |:x: LoadJSON                                                                                                        |:x: Subtract |                         |                                                                                                              |
+|:x: JsonToTable                                                                                               |:heavy_check_mark: [RegexExtractAll](https://clay584.github.io/knex/parsers-reference/#knex.parsers.RegexExtractAll)|:x: SumList  |                         |                                                                                                              |
+|:heavy_check_mark: [LastElement](https://clay584.github.io/knex/parsers-reference/#knex.parsers.LastElement)  |:x: RegexReplace                                                                                                    |:x: ToPercent|                         |                                                                                                              |
+|:x: ReverseList                                                                                               |:heavy_check_mark: [Split](https://clay584.github.io/knex/parsers-reference/#knex.parsers.Split)                    |             |                         |                                                                                                              |
+|:x: SetIfEmpty                                                                                                |:x: Substring                                                                                                       |             |                         |                                                                                                              |
+|:x: Slice                                                                                                     |:heavy_check_mark: [ToLower](https://clay584.github.io/knex/parsers-reference/#knex.parsers.ToLower)                |             |                         |                                                                                                              |
+|:x: Sort                                                                                                      |:x: ToString                                                                                                        |             |                         |                                                                                                              |
+|:x: Stringify                                                                                                 |:heavy_check_mark: [ToUpper](https://clay584.github.io/knex/parsers-reference/#knex.parsers.ToUpper)                |             |                         |                                                                                                              |
+|:x: Unique                                                                                                    |:x: Trim                                                                                                            |             |                         |                                                                                                              |
+|:x: WhereFieldEquals                                                                                          |                                                                                                                    |             |                         |                                                                                                              |
+<!-- end replace -->
 <!-- markdownlint-enable MD013 -->
 
 ## Usage
@@ -149,6 +151,15 @@ Python library for creating chainable data transformers.
 Docs are created automatically using `mkdocs` and `mkdocstring`.
 Testing docs live can be done using `mkdocs serve -a localhost:<port>`.
 Docs are built and published automatically using Github Actions.
+
+### Adding a Parser
+
+1. Add the tests for the parser in `./tests/test_knex.py`.
+2. Add the parser in `./knex/parsers.py` with docstrings.
+3. Write amazing code until all tests are passing.
+4. Add the parser in `./gen_table.py`.
+5. Run `./gen_table.py`. It will generate that stupid markdown table
+and insert it into `README.md`.
 
 ### Generating Plain Old requirements.txt
 

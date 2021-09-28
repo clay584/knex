@@ -2,6 +2,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Pytest",
             "type": "python",
             "request": "launch",
@@ -11,7 +18,7 @@
             ]
         },
         {
-            "name": "Python: Current File",
+            "name": "Python: Manual Tests",
             "type": "python",
             "request": "launch",
             "program": "/home/jccurtis/code/personal/knex/tests/manual.py",
