@@ -485,6 +485,11 @@ class MacAddress(Parser):
         super().__init__(*args, **kwargs)
 
     def process(self):
+        """Parse and format mac address.
+
+        Returns:
+            str: Mac address in user provided format.
+        """
         if self.raise_exception:
             mac = MacAddr(self.input)
             return mac.format(size=self.size, sep=self.sep)
