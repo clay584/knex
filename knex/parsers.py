@@ -499,3 +499,30 @@ class MacAddress(Parser):
         except Exception as e:
             self.error = True
             return str(e)
+
+
+class IndexOf(Parser):
+    """Find index of value or return -1 if not found"""
+
+    def __init__(self, value="", *args, **kwargs):
+        self.value = value
+        super().__init__(*args, **kwargs)
+
+    def process(self):
+        if self.raise_exception:
+            if not isinstance(self.input, list):
+                raise TypeError("Input value must be list")
+            for idx, val in enumerate(self.input):
+                if val == self.value:
+                    return idx
+            return -1
+        try:
+            if not isinstance(self.input, list):
+                raise TypeError("Input value must be list")
+            for idx, val in enumerate(self.input):
+                if val == self.value:
+                    return idx
+            return -1
+        except Exception as e:
+            self.error = True
+            return str(e)

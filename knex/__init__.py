@@ -19,6 +19,7 @@ __all__ = [
     "LastElement",
     "TextFSMParse",
     "MacAddress",
+    "IndexOf",
 ]
 
 from .parsers import (
@@ -39,4 +40,5 @@ from .parsers import (
     LastElement,
     TextFSMParse,
     MacAddress,
+    IndexOf,
 )

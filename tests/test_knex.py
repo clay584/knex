@@ -20,6 +20,7 @@ from knex.parsers import (
     ToUpper,
     TextFSMParse,
     MacAddress,
+    IndexOf,
 )
 
 
@@ -432,3 +433,27 @@ def test_macaddress_raise():
         (Start("0000.1111.ZZZZ", raise_exception=True) > MacAddress())
     except Exception as e:
         assert type(e).__name__ == "ValueError"  # nosec B101
+
+
+def test_indexof_success():
+    assert (Start(["foo", "bar"]) > IndexOf("foo")).result == 0  # nosec B101
+
+
+def test_indexof_fail():
+    assert (Start(["foo", "bar"]) > IndexOf("baz")).result == -1  # nosec B101
+    try:
+        (Start("foobar") > IndexOf("baz")).result
+    except Exception as e:
+        assert type(e).__name__ == "TypeError"  # nosec B101
+
+
+def test_indexof_raise():
+    try:
+        (Start({"foo": "bar"}, raise_exception=True) > IndexOf("baz")).result
+    except Exception as e:
+        assert type(e).__name__ == "TypeError"  # nosec B101
+
+    result = (Start(["foo", "bar"], raise_exception=True) > IndexOf("baz")).result
+    assert result == -1  # nosec B101
+    result = (Start(["foo", "bar"], raise_exception=True) > IndexOf("bar")).result
+    assert result == 1  # nosec B101

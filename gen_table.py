@@ -94,6 +94,7 @@ PARSERS = sorted(
         {"name": "ToSnakeCase", "type": "Other", "status": "planned"},
         {"name": "Random", "type": "Other", "status": "planned"},
         {"name": "FuzzyWuzzyFind", "type": "Other", "status": "planned"},
+        {"name": "IndexOf", "type": "General", "status": "implemented"},
     ],
     key=lambda k: k["name"],
 )
