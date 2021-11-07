@@ -13,7 +13,7 @@ class Parser:
     """Base Parser object"""
 
     def __init__(self, input_data=None, raise_exception=False, *args, **kwargs):
-        """Base parser initialization. This does not need to be called as an end user of this library.
+        """Base parser object. This does not need to be called as an end user of this library.
         Args:
             input_data (Any, optional): Input to the parser. Defaults to None.
             raise_exception (bool, optional): Whether or not to raise a proper python exception if there is a parsing failure. Defaults to False.
@@ -84,13 +84,13 @@ class Parser:
 
 
 class Start(Parser):
-    """Starting parser object. All transformations must start with the Start object."""
+    """Starting parser object."""
 
     def __init__(self, input_data, *args, **kwargs):
-        """Starter object to begin a chain of parsing.
+        """Starting parser object. All transformations must start with the Start object.
 
         Args:
-            input (Any): Any form of input that is to be parsed so long as it is a simple data type. (e.g. numbers, sequences, dicts, sets, etc.)
+            input_data (Any): Any form of input that is to be parsed so long as it is a simple data type. (e.g. numbers, sequences, dicts, sets, etc.)
         """
         super().__init__(input_data, *args, **kwargs)
         self.result = self.input
