@@ -25,7 +25,7 @@ from knex.parsers import (
 
 
 def test_version():
-    assert __version__ == "0.3.2"  # nosec B101
+    assert __version__ == "0.4.0"  # nosec B101
 
 
 def test_parser():
