@@ -502,13 +502,26 @@ class MacAddress(Parser):
 
 
 class IndexOf(Parser):
-    """Find index of value or return -1 if not found"""
+    """Find index of value in a list, or return -1 if not found"""
 
     def __init__(self, value="", *args, **kwargs):
+        """Initialize by providing a value to search
+
+        Args:
+            value (str, optional): Value to search for. Defaults to "".
+        """
         self.value = value
         super().__init__(*args, **kwargs)
 
     def process(self):
+        """Find index of value in list
+
+        Raises:
+            TypeError: TypeError if input is not a list
+
+        Returns:
+            int: Index of value found, or -1 if value not found
+        """
         if self.raise_exception:
             if not isinstance(self.input, list):
                 raise TypeError("Input value must be list")
@@ -523,6 +536,42 @@ class IndexOf(Parser):
                 if val == self.value:
                     return idx
             return -1
+        except Exception as e:
+            self.error = True
+            return str(e)
+
+
+class Join(Parser):
+    """Join a list strings together"""
+
+    def __init__(self, separator="", *args, **kwargs):
+        """Initialize by passing a separator value
+
+        Args:
+            separator (str, optional): Insert value in between items. Defaults to "".
+        """
+        self.separator = separator
+        super().__init__(*args, **kwargs)
+
+    def _join(self):
+        if not isinstance(self.input, list):
+            raise TypeError("Input must be list")
+        return self.separator.join(self.input)
+
+    def process(self):
+        """Concatenate list of strings
+
+        Raises:
+            TypeError: Returned if input is not list
+
+        Returns:
+            str: Concatenated string separated by optional separator
+        """
+
+        if self.raise_exception:
+            return self._join()
+        try:
+            return self._join()
         except Exception as e:
             self.error = True
             return str(e)

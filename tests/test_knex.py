@@ -21,6 +21,7 @@ from knex.parsers import (
     TextFSMParse,
     MacAddress,
     IndexOf,
+    Join,
 )
 
 
@@ -457,3 +458,15 @@ def test_indexof_raise():
     assert result == -1  # nosec B101
     result = (Start(["foo", "bar"], raise_exception=True) > IndexOf("bar")).result
     assert result == 1  # nosec B101
+
+
+def test_join():
+    # success
+    assert (Start(["a", "b", "c"]) > Join(",")).result == "a,b,c"  # nosec B101
+    # fail
+    assert (Start({"foo": "bar"}) > Join()).result == "Input must be list"  # nosec B101
+    # raise
+    try:
+        (Start("foo", raise_exception=True) > Join())
+    except Exception as e:
+        assert type(e).__name__ == "TypeError"  # nosec B101

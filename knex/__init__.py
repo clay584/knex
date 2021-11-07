@@ -20,6 +20,7 @@ __all__ = [
     "TextFSMParse",
     "MacAddress",
     "IndexOf",
+    "Join",
 ]
 
 from .parsers import (
@@ -41,4 +42,5 @@ from .parsers import (
     TextFSMParse,
     MacAddress,
     IndexOf,
+    Join,
 )
