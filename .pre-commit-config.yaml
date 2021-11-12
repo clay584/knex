@@ -12,10 +12,10 @@ repos:
       - id: check-toml
       - id: debug-statements
       - id: detect-private-key
-  - repo: https://github.com/asottile/dead
-    rev: v1.4.0
-    hooks:
-      - id: dead
+  # - repo: https://github.com/asottile/dead
+  #   rev: v1.4.0
+  #   hooks:
+  #     - id: dead
   - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
     rev: v1.1.1
     hooks:
