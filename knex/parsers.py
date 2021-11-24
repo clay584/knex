@@ -6,6 +6,7 @@ import textfsm
 import tempfile
 import regex as re
 from macaddr import MacAddress as MacAddr
+import json
 
 
 class Parser:
@@ -52,6 +53,22 @@ class Parser:
             pass
         return args
 
+    def make_history(self, other):
+        history = OrderedDict()
+        history["input"] = other.input
+        history["parser"] = str(type(other).__name__)
+        history["args"] = other.get_args()
+        history["error"] = other.error
+        history["output"] = other.result
+
+        # if hasattr(self, "history") and self.history is not None:
+        other.history = copy(self.history)
+        other.history.append(history)
+        # else:
+        #     other.history = [history]
+
+        return other
+
     def __gt__(self, other):
         """Greater-than `>` dunder method overload allowing for the chaining of parsers together. (e.g. `Parser > Parser > Parser`)
 
@@ -64,20 +81,10 @@ class Parser:
         other.raise_exception = self.raise_exception
         other.input = self.process()
         other.result = other.process()
-        history = OrderedDict()
-        history["parser"] = str(type(other).__name__)
-        history["input"] = other.input
-        history["args"] = other.get_args()
-        history["error"] = other.error
-        history["output"] = other.result
+        return self.make_history(other)
 
-        if hasattr(self, "history") and self.history is not None:
-            other.history = copy(self.history)
-            other.history.append(history)
-        else:
-            other.history = [history]
-
-        return other
+    def to_json(self):
+        return json.dumps(self.history, indent=4)
 
     def __str__(self):
         return str(self.process())
@@ -95,6 +102,15 @@ class Start(Parser):
         super().__init__(input_data, *args, **kwargs)
         self.result = self.input
         self.args = self.get_args()
+        self.history = [
+            OrderedDict(
+                {
+                    "input": self.input,
+                    "parser": str(type(self).__name__),
+                    "output": self.result,
+                }
+            )
+        ]
 
 
 class Base64Encode(Parser):
