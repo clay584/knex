@@ -19,7 +19,7 @@ from knex.parsers import (
 print(
     json.dumps(
         (
-            Start(["Clay"], raise_exception=False)
+            Start("Clay", raise_exception=False)
             > Base64Encode()
             > Base64Decode()
             > ToUpper()

@@ -2,6 +2,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "loader_test",
+            "type": "python",
+            "request": "launch",
+            "program": "/home/jccurtis/code/personal/knex/tests/loader_test.py",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",

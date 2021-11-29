@@ -115,6 +115,22 @@ def test_history1():
     ).history == golden
 
 
+def test_to_json():
+    with open("tests/history1.json", "r") as f:
+        golden = json.load(f)
+
+    assert (  # nosec B101
+        Start("Clay")
+        > Base64Encode()
+        > Base64Decode()
+        > ToUpper()
+        > Split("A")
+        > GetIndex(0)
+        > Concat(suffix="AY")
+        > ToLower()
+    ).to_json() == json.dumps(golden, indent=4)
+
+
 def test_base64encode_raise():
     try:
         (Start(["Clay"], raise_exception=True) > Base64Encode())
