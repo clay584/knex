@@ -4,7 +4,7 @@ ci:
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.5.0
     hooks:
       - id: check-ast
       - id: check-json
@@ -13,19 +13,19 @@ repos:
       - id: debug-statements
       - id: detect-private-key
   - repo: https://github.com/asottile/dead
-    rev: v1.4.0
+    rev: v1.5.2
     hooks:
       - id: dead
   - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
-    rev: v1.1.1
+    rev: v1.1.2
     hooks:
       - id: dockerfile_lint
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.26.3
+    rev: v1.35.1
     hooks:
       - id: yamllint
   - repo: https://github.com/psf/black
-    rev: 21.11b1
+    rev: 24.3.0
     hooks:
       - id: black
   - repo: https://github.com/IamTheFij/docker-pre-commit
@@ -34,19 +34,19 @@ repos:
       - id: docker-compose-check
       - id: hadolint
   - repo: https://github.com/PyCQA/flake8
-    rev: 4.0.1
+    rev: 7.0.0
     hooks:
       - id: flake8
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.1
+    rev: 1.7.8
     hooks:
       - id: bandit
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.30.0
+    rev: v0.39.0
     hooks:
       - id: markdownlint
   - repo: https://github.com/Yelp/detect-secrets
-    rev: v1.1.0
+    rev: v1.4.0
     hooks:
       - id: detect-secrets
   - repo: local
