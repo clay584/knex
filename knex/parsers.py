@@ -9,7 +9,6 @@ from macaddr import MacAddress as MacAddr
 
 
 class Parser:
-
     """Base Parser object"""
 
     def __init__(self, input_data=None, raise_exception=False, *args, **kwargs):
