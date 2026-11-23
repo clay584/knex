@@ -3,7 +3,6 @@ from itertools import zip_longest
 from pytablewriter import MarkdownTableWriter
 import re
 
-
 EMOJI_CHECK = ":heavy_check_mark:"
 EMOJI_X = ":x:"
 DOCS_URL = "https://clay584.github.io/knex/parsers-reference/#knex.parsers."
@@ -102,9 +101,9 @@ PARSERS = sorted(
 def build_field(parser):
     status = EMOJI_CHECK if parser.get("status") == "implemented" else EMOJI_X
     if parser.get("status") == "implemented":
-        parser[
-            "rendered"
-        ] = f"{status} [{parser.get('name')}]({DOCS_URL}{parser.get('name')})"
+        parser["rendered"] = (
+            f"{status} [{parser.get('name')}]({DOCS_URL}{parser.get('name')})"
+        )
     else:
         parser["rendered"] = f"{status} {parser.get('name')}"
 
